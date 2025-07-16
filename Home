@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FMC Project - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>FMC Project</h1>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#regolamento">Regolamento</a></li>
+        <li><a href="#squadre">Squadre</a></li>
+        <li><a href="#albo">Albo d'oro</a></li>
+        <li><a href="#contatti">Contatti</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>Questo è il FMC Project</h2>
+    <p>Versione 1.0</p>
+    <a href="#regolamento" class="btn">Regolamento</a>
+  </section>
+
+  <section id="regolamento" class="section">
+    <h2>Regolamento</h2>
+    <p>Regolamento ufficiale del FMC Project - Aggiornato a luglio 2025</p>
+  </section>
+
+  <section id="squadre" class="section">
+    <h2>Squadre</h2>
+    <div class="teams">
+      <div class="team">
+        <h3>Squadra 1</h3>
+        <p>Descrizione breve.</p>
+      </div>
+      <div class="team">
+        <h3>Squadra 2</h3>
+        <p>Descrizione breve.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="albo" class="section">
+    <h2>Albo d'oro</h2>
+    <ul>
+      <li>2025/26 - Squadra Vincente</li>
+    </ul>
+  </section>
+
+  <section id="contatti" class="section">
+    <h2>Contatti</h2>
+    <form>
+      <input type="text" placeholder="Nome" required />
+      <input type="email" placeholder="Email" required />
+      <textarea placeholder="Messaggio" required></textarea>
+      <button type="submit">Invia</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
+  </footer>
+</body>
+</html>
