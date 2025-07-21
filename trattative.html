@@ -26,7 +26,63 @@
   </header>
 
   <main class="section">
-    <h2>Vuoto</h2>
+    <form action="#" method="post" style="max-width: 600px; margin: auto; padding: 20px; border: 2px solid #333; border-radius: 10px; background-color: #f9f9f9;">
+  <h2 style="text-align: center;">Modulo Trattativa</h2>
+
+  <!-- Squadra proponente -->
+  <label for="squadra1">La tua squadra:</label>
+  <select id="squadra1" name="squadra1" required>
+    <option value=""> Seleziona</option>
+    <option value="Squadra 1">Squadra 1</option>
+    <option value="Squadra 2">Squadra 2</option>
+    <option value="Squadra 3">Squadra 3</option>
+    <option value="Squadra 4">Squadra 4</option>
+    <option value="Squadra 5">Squadra 5</option>
+    <option value="Squadra 6">Squadra 6</option>
+    <option value="Squadra 7">Squadra 7</option>
+    <option value="Squadra 8">Squadra 8</option>
+    <option value="Squadra 9">Squadra 9</option>
+    <option value="Squadra 10">Squadra 10</option>
+    <option value="Squadra 11">Squadra 11</option>
+    <option value="Squadra 12">Squadra 12</option>
+  </select><br><br>
+
+  <!-- Squadra controparte -->
+  <label for="squadra2">Squadra controparte:</label>
+  <select id="squadra2" name="squadra2" required>
+    <option value="">Seleziona</option>
+     <option value="Squadra 1">Squadra 1</option>
+    <option value="Squadra 2">Squadra 2</option>
+    <option value="Squadra 3">Squadra 3</option>
+    <option value="Squadra 4">Squadra 4</option>
+    <option value="Squadra 5">Squadra 5</option>
+    <option value="Squadra 6">Squadra 6</option>
+    <option value="Squadra 7">Squadra 7</option>
+    <option value="Squadra 8">Squadra 8</option>
+    <option value="Squadra 9">Squadra 9</option>
+    <option value="Squadra 10">Squadra 10</option>
+    <option value="Squadra 11">Squadra 11</option>
+    <option value="Squadra 12">Squadra 12</option>
+  </select><br><br>
+
+  <!-- Calciatori coinvolti -->
+  <label for="calciatori">Calciatori coinvolti:</label>
+  <textarea id="calciatori" name="calciatori" rows="3" placeholder="Es. Giocatore 1, Giocatore 2" required></textarea><br><br>
+
+  <!-- Tipologia trattativa -->
+  <label for="tipo">Tipo di trattativa:</label>
+  <select id="tipo" name="tipo" required>
+    <option value="">Seleziona</option>
+    <option value="Vendita">Vendita</option>
+    <option value="Prestito">Prestito</option>
+  </select><br><br>
+      
+  <!-- Clausole -->
+  <label for="clausole">Clausole (facoltativo):</label>
+  <textarea id="clausole" name="clausole" rows="3" placeholder="Es. diritto di riscatto a 20 crediti, % su futura rivendita..."></textarea><br><br>
+
+  <button type="submit" style="width: 100%; padding: 10px; background-color: #004aad; color: white; border: none; border-radius: 5px;">Invia Trattativa</button>
+</form>
   </main>
 
   <footer>
