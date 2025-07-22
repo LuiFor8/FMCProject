@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Trattative</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      padding: 30px;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #004aad;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 70px;
+    }
+
+    button {
+      background-color: #004aad;
+      color: white;
+      font-weight: bold;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #002f73;
+    }
+
+    table {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: #004aad;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f5faff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .table-title {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Inserisci una Trattativa</h1>
+
+    <label for="squadra1">La tua squadra:</label>
+    <select id="squadra1">
+      <option value="">-- Seleziona --</option>
+      <option>Squadra A</option>
+      <option>Squadra B</option>
+      <option>Squadra C</option>
+      <option>Squadra D</option>
+    </select>
+
+    <label for="squadra2">Squadra controparte:</label>
+    <select id="squadra2">
+      <option value="">-- Seleziona --</option>
+      <option>Squadra A</option>
+      <option>Squadra B</option>
+      <option>Squadra C</option>
+      <option>Squadra D</option>
+    </select>
+
+    <label for="calciatori">Calciatori oggetto di trattativa:</label>
+    <textarea id="calciatori" placeholder="Es: Rossi (A), Bianchi (B)"></textarea>
+
+    <label for="tipologia">Tipologia di trattativa:</label>
+    <select id="tipologia">
+      <option value="">-- Seleziona --</option>
+      <option>Scambio</option>
+      <option>Prestito</option>
+      <option>Vendita</option>
+      <option>Prestito con riscatto</option>
+    </select>
+
+    <label for="clausole">Clausole:</label>
+    <textarea id="clausole" placeholder="Es: diritto di riscatto a 15 milioni"></textarea>
+
+    <button onclick="aggiungiTrattativa()">Invia Trattativa</button>
+  </div>
+
+  <div class="table-container hidden" id="tabellaContainer">
+    <h2 class="table-title">Storico Trattative</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Da</th>
+          <th>A</th>
+          <th>Calciatori</th>
+          <th>Tipo</th>
+          <th>Clausole</th>
+        </tr>
+      </thead>
+      <tbody id="corpoTabella"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function aggiungiTrattativa() {
+      const squadra1 = document.getElementById("squadra1").value;
+      const squadra2 = document.getElementById("squadra2").value;
+      const calciatori = document.getElementById("calciatori").value.trim();
+      const tipologia = document.getElementById("tipologia").value;
+      const clausole = document.getElementById("clausole").value.trim();
+
+      if (!squadra1 || !squadra2 || !calciatori || !tipologia) {
+        alert("Compila tutti i campi obbligatori.");
+        return;
+      }
+
+      const tabellaContainer = document.getElementById("tabellaContainer");
+      const corpoTabella = document.getElementById("corpoTabella");
+
+      const nuovaRiga = document.createElement("tr");
+      nuovaRiga.innerHTML = `
+        <td>${squadra1}</td>
+        <td>${squadra2}</td>
+        <td>${calciatori}</td>
+        <td>${tipologia}</td>
+        <td>${clausole || "-"}</td>
+      `;
+
+      corpoTabella.appendChild(nuovaRiga);
+      tabellaContainer.classList.remove("hidden");
+
+      // Pulisce i campi
+      document.getElementById("squadra1").value = "";
+      document.getElementById("squadra2").value = "";
+      document.getElementById("calciatori").value = "";
+      document.getElementById("tipologia").value = "";
+      document.getElementById("clausole").value = "";
+    }
+  </script>
+
+</body>
+</html>
