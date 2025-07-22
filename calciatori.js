@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function filtraDati() {
         const squadra = filtroSquadra.value;
         const ruolo = filtroRuolo.value;
-        const ruolo = filtroAnniContratto.value;
+        const annicontratto = filtroAnniContratto.value;
         const filtrati = data.filter(row =>
           (squadra === "" || row.Squadra === squadra) &&
           (ruolo === "" || row.Ruolo === ruolo) &&
@@ -61,6 +61,13 @@ document.addEventListener("DOMContentLoaded", function () {
         filtroRuolo.appendChild(opt);
       });
 
+      annicontratto.forEach(a => {
+  const opt = document.createElement("option");
+  opt.value = opt.textContent = a;
+  filtroAnniContratto.appendChild(opt);
+});
+
+filtroAnniContratto.addEventListener("change", filtraDati);
       filtroSquadra.addEventListener("change", filtraDati);
       filtroRuolo.addEventListener("change", filtraDati);
 
