@@ -45,10 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
           tr.innerHTML = `
             <td>${row.Nome}</td>
             <td>${row.Ruolo}</td>
+            <td>${row.Mantra}</td>
+            <td>${row.Anno}</td>
+            <td>${row.Primavera}</td>
             <td>${row.Squadra}</td>
+            <td>${row.Proprietario}</td>
             <td>${row.ValoreIniziale}</td>
             <td>${row.AnniContratto}</td>
             <td>${row.ValoreContratto}</td>
+            <td>${row.TrasferimentoFuturo}</td>
           `;
           tbody.appendChild(tr);
         });
@@ -65,7 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
           (squadra === "" || row.Squadra === squadra) &&
           (ruolo === "" || row.Ruolo === ruolo) &&
           (anni === "" || row.AnniContratto === anni) &&
-          (row.Nome.toLowerCase().includes(searchText) || row.Squadra.toLowerCase().includes(searchText))
+          (
+            row.Nome.toLowerCase().includes(searchText) ||
+            row.Squadra.toLowerCase().includes(searchText) ||
+            row.Mantra?.toLowerCase().includes(searchText) ||
+            row.Proprietario?.toLowerCase().includes(searchText)
+          )
         );
 
         renderTable(filtrati);
@@ -76,8 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
         currentSort = { column: col, asc: isAsc };
 
         data.sort((a, b) => {
-          let valA = a[col];
-          let valB = b[col];
+          let valA = a[col] ?? "";
+          let valB = b[col] ?? "";
 
           const isNumeric = !isNaN(parseFloat(valA)) && !isNaN(parseFloat(valB));
           if (isNumeric) {
@@ -94,23 +104,15 @@ document.addEventListener("DOMContentLoaded", function () {
         filtraDati();
       }
 
-      // Aggiungi ordinamento alle intestazioni
+      const columns = [
+        "Nome", "Ruolo", "Mantra", "Anno", "Primavera", "Squadra",
+        "Proprietario", "ValoreIniziale", "AnniContratto", "ValoreContratto", "TrasferimentoFuturo"
+      ];
+
       document.querySelectorAll("#tabellaCalciatori thead th").forEach((th, index) => {
-        th.addEventListener("click", () => {
-          const columns = ["Nome", "Ruolo", "Squadra", "ValoreIniziale", "AnniContratto", "ValoreContratto"];
-          sortTable(columns[index]);
-        });
+        th.addEventListener("click", () => sortTable(columns[index]));
       });
 
       filtroSquadra.addEventListener("change", filtraDati);
       filtroRuolo.addEventListener("change", filtraDati);
-      filtroAnniContratto.addEventListener("change", filtraDati);
-      searchInput.addEventListener("input", filtraDati);
-
-      renderTable(data);
-    },
-    error: function (err) {
-      console.error("Errore caricamento CSV:", err);
-    }
-  });
-});
+      filtroAnniContratto.addEventListener(
