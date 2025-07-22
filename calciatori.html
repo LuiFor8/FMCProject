@@ -26,8 +26,44 @@
   </header>
 
   <main class="section">
-    <h2>Vuoto</h2>
-  </main>
+  <h2>Elenco Calciatori</h2>
+
+  <!-- Filtri -->
+  <div style="margin-bottom: 20px;">
+    <label for="filtroSquadra">Squadra:</label>
+    <select id="filtroSquadra">
+      <option value="">Tutte</option>
+    </select>
+
+    <label for="filtroRuolo">Ruolo:</label>
+    <select id="filtroRuolo">
+      <option value="">Tutti</option>
+    </select>
+
+    <label for="filtroAnniContratto">Anni Contratto:</label>
+    <select id="filtroAnniContratto">
+      <option value="">Tutti</option>
+    </select>
+  </div>
+
+  <!-- Tabella -->
+  <table id="tabellaCalciatori" style="width: 100%; border-collapse: collapse;">
+    <thead style="background-color: #004aad; color: white;">
+      <tr>
+        <th style="padding: 10px;">Nome</th>
+        <th style="padding: 10px;">Ruolo</th>
+        <th style="padding: 10px;">Squadra</th>
+        <th style="padding: 10px;">Valore Iniziale</th>
+        <th style="padding: 10px;">Anni Contratto</th>
+        <th style="padding: 10px;">Valore Contratto</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="calciatori.js"></script>
 
   <footer>
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
