@@ -27,25 +27,33 @@
 
   <main class="section">
   <h2>Elenco Calciatori</h2>
-    <input type="text" id="searchInput" placeholder="Cerca" />
+   <input type="text" id="searchInput" placeholder="Cerca...">
 
-  <!-- Filtri -->
-  <div style="margin-bottom: 20px;">
-    <label for="filtroSquadra">Squadra:</label>
-    <select id="filtroSquadra">
-      <option value="">Tutte</option>
-    </select>
+<div style="margin: 20px 0; text-align: center;">
+  <select id="filtroSquadra"><option value="">Tutte le squadre</option></select>
+  <select id="filtroRuolo"><option value="">Tutti i ruoli</option></select>
+  <select id="filtroProprietario"><option value="">Tutti i proprietari</option></select>
+</div>
 
-    <label for="filtroRuolo">Ruolo:</label>
-    <select id="filtroRuolo">
-      <option value="">Tutti</option>
-    </select>
+<table id="tabellaCalciatori">
+  <thead>
+    <tr>
+      <th class="sortable">Nome</th>
+      <th class="sortable">Ruolo</th>
+      <th class="sortable">Mantra</th>
+      <th class="sortable">Anno</th>
+      <th class="sortable">Primavera</th>
+      <th class="sortable">Squadra</th>
+      <th class="sortable">Proprietario</th>
+      <th class="sortable">Valore Iniziale</th>
+      <th class="sortable">Anni Contratto</th>
+      <th class="sortable">Valore Contratto</th>
+      <th class="sortable">Trasferimento Futuro</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-    <label for="filtroAnniContratto">Anni Contratto:</label>
-    <select id="filtroAnniContratto">
-      <option value="">Tutti</option>
-    </select>
-  </div>
 
   <!-- Tabella -->
   <table id="tabellaCalciatori" style="width: 100%; border-collapse: collapse;">
