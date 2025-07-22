@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let squadre = new Set();
       let ruoli = new Set();
-      let annicontratto = new Set();
+      let annicontrattoSet = new Set();
 
       function renderTable(filtrati) {
         tbody.innerHTML = "";
@@ -27,30 +27,32 @@ document.addEventListener("DOMContentLoaded", function () {
               <td style="padding: 10px;">${row.ValoreContratto}</td>
             `;
             tbody.appendChild(tr);
-            if (Object.values(row).some(cell => cell === null || cell.trim() === "")) return;
           }
         });
       }
 
       function filtraDati() {
-        const squadra = filtroSquadra.value;
-        const ruolo = filtroRuolo.value;
-        const annicontratto = filtroAnniContratto.value;
-        
+        const squadra = filtroSquadra.value.trim();
+        const ruolo = filtroRuolo.value.trim();
+        const annicontratto = filtroAnniContratto.value.trim();
+
         const filtrati = data.filter(row =>
           (squadra === "" || row.Squadra === squadra) &&
           (ruolo === "" || row.Ruolo === ruolo) &&
           (annicontratto === "" || row.AnniContratto === annicontratto)
         );
+
         renderTable(filtrati);
       }
 
+      // Popola i set per i filtri
       data.forEach(row => {
-        squadre.add(row.Squadra);
-        ruoli.add(row.Ruolo);
-        annicontratto.add(row.AnniContratto);
+        if (row.Squadra) squadre.add(row.Squadra.trim());
+        if (row.Ruolo) ruoli.add(row.Ruolo.trim());
+        if (row.AnniContratto) annicontrattoSet.add(row.AnniContratto.trim());
       });
 
+      // Popola i filtri dinamicamente
       squadre.forEach(s => {
         const opt = document.createElement("option");
         opt.value = opt.textContent = s;
@@ -63,22 +65,20 @@ document.addEventListener("DOMContentLoaded", function () {
         filtroRuolo.appendChild(opt);
       });
 
-      annicontratto.forEach(a => {
-  const opt = document.createElement("option");
-  opt.value = opt.textContent = a;
-  filtroAnniContratto.appendChild(opt);
-});
+      annicontrattoSet.forEach(a => {
+        const opt = document.createElement("option");
+        opt.value = opt.textContent = a;
+        filtroAnniContratto.appendChild(opt);
+      });
 
-filtroAnniContratto.addEventListener("change", filtraDati);
+      filtroAnniContratto.addEventListener("change", filtraDati);
       filtroSquadra.addEventListener("change", filtraDati);
       filtroRuolo.addEventListener("change", filtraDati);
 
       renderTable(data);
     },
-    error: function(err) {
-  console.error("Errore caricamento CSV:", err);
-}
+    error: function (err) {
+      console.error("Errore caricamento CSV:", err);
+    }
   });
 });
-
-
