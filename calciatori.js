@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <td style="padding: 10px;">${row.ValoreContratto}</td>
             `;
             tbody.appendChild(tr);
+            if (Object.values(row).some(cell => cell === null || cell.trim() === "")) return;
           }
         });
       }
@@ -35,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const squadra = filtroSquadra.value;
         const ruolo = filtroRuolo.value;
         const annicontratto = filtroAnniContratto.value;
+        const annicontratto = filtroAnniContratto.value.trim();
+const ruolo = filtroRuolo.value.trim();
+const squadra = filtroSquadra.value.trim();
         const filtrati = data.filter(row =>
           (squadra === "" || row.Squadra === squadra) &&
           (ruolo === "" || row.Ruolo === ruolo) &&
@@ -72,7 +76,11 @@ filtroAnniContratto.addEventListener("change", filtraDati);
       filtroRuolo.addEventListener("change", filtraDati);
 
       renderTable(data);
-    }
+    },
+    error: function(err) {
+  console.error("Errore caricamento CSV:", err);
+}
   });
 });
+
 
