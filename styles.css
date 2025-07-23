@@ -8,8 +8,8 @@
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #121212;
-  color: #f07f00; /* arancione caldo */
-  line-height: 1.5;
+  color: #f3a840;
+  line-height: 1.6;
   font-size: 16px;
 }
 
@@ -21,7 +21,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #ffb84d;
+  color: #ffd27f;
   outline: none;
 }
 
@@ -66,10 +66,15 @@ header ul li a:focus {
   outline: none;
 }
 
+header ul li a.active {
+  background-color: #ff9f1c;
+  color: #121212;
+}
+
 /* --- Container principale --- */
 .section {
   max-width: 1024px;
-  margin: 2rem auto 3rem;
+  margin: 2rem auto;
   padding: 0 1rem;
 }
 
@@ -103,8 +108,8 @@ header ul li a:focus {
 
 /* --- Logo squadra piccolo --- */
 .squadra-box img.logo-squadra {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   border-radius: 6px;
   border: 2px solid transparent;
@@ -119,14 +124,14 @@ header ul li a:focus {
   margin: 0;
   font-weight: 700;
   font-size: 1.2rem;
-  color: #f07f00;
+  color: #f3a840;
 }
 
 .squadra-box p {
   margin: 0;
   font-weight: 500;
   font-size: 0.9rem;
-  color: #f3a840;
+  color: #ffd27f;
 }
 
 /* --- Dettagli squadra --- */
@@ -144,12 +149,10 @@ header ul li a:focus {
   color: #f3a840;
 }
 
-/* Mostra dettagli */
 .team-details.active {
   display: block;
 }
 
-/* Logo grande nei dettagli */
 .team-details img.team-logo-large {
   display: block;
   margin: 0 auto 1.5rem;
@@ -160,7 +163,6 @@ header ul li a:focus {
   border: 2px solid #ff9f1c;
 }
 
-/* Titoli dettagli */
 .team-details h3,
 .team-details h4 {
   color: #ff9f1c;
@@ -169,14 +171,13 @@ header ul li a:focus {
   font-weight: 700;
 }
 
-/* Info team */
 .team-details .team-info p {
   margin: 0.3rem 0;
   font-weight: 500;
   color: #f3a840;
 }
 
-/* Bottone chiudi */
+/* --- Bottone chiudi --- */
 #close-details {
   position: absolute;
   top: 15px;
@@ -194,7 +195,7 @@ header ul li a:focus {
   background-color: #cc3200;
 }
 
-/* Tabelle dettagli giocatori */
+/* --- Tabelle --- */
 .team-details table {
   width: 100%;
   border-collapse: collapse;
@@ -213,8 +214,6 @@ header ul li a:focus {
   padding: 0.5rem 0.7rem;
   border: 1px solid #333;
   text-align: center;
-  word-wrap: break-word;
-  color: #f3a840;
 }
 
 .team-details tbody tr:nth-child(even) {
@@ -224,12 +223,16 @@ header ul li a:focus {
 .team-details tbody tr:hover {
   background-color: #3b3b3b;
 }
-.logo-squadra {
+
+/* --- Logo nei moduli (stessa classe per coerenza) --- */
+#moduli-container img.logo-squadra {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  border-radius: 6px;
 }
-/* Responsive */
+
+/* --- Responsive --- */
 @media (max-width: 768px) {
   header nav {
     flex-direction: column;
@@ -240,17 +243,6 @@ header ul li a:focus {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
-  .squadra-box img.logo-squadra {
-    width: 30px;
-    height: 30px;
-  }
-
-  .team-details img.team-logo-large {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Tabelle mobile - blocchi */
   .team-details table,
   .team-details thead,
   .team-details tbody,
@@ -287,7 +279,7 @@ header ul li a:focus {
   }
 }
 
-/* Bottoni globali */
+/* --- Bottoni globali --- */
 button {
   background-color: #ff9f1c;
   color: #121212;
@@ -298,7 +290,6 @@ button {
   font-weight: 700;
   transition: background-color 0.3s ease;
 }
-
 button:hover,
 button:focus {
   background-color: #cc7e14;
