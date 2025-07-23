@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FMC Project - Squadre</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -15,7 +14,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="regolamento.html">Regolamento</a></li>
-        <li><a href="squadre.html">Squadre</a></li>
+        <li><a href="squadre.html" class="active">Squadre</a></li>
         <li><a href="competizioni.html">Competizioni</a></li>
         <li><a href="calciatori.html">Calciatori</a></li>
         <li><a href="trattative.html">Trattative</a></li>
@@ -26,18 +25,148 @@
     </nav>
   </header>
 
-  <main class="section">
-    <h2>Squadre</h2>
-    <!-- Questo è il contenitore dove JS inserirà i box delle squadre -->
-    <div id="squadre-container" class="teams-container">
-      <!-- Squadre generate dinamicamente da squadre.js -->
+  <main class="section container">
+
+    <h2 class="section-title">Le 12 Squadre</h2>
+    <div class="teams-grid">
+      <!-- Box squadra 1 -->
+      <div class="team-box">
+        <a href="squadre/squadra1.html" class="logo-link">
+          <img src="loghi/logo1.png" alt="Logo Squadra 1" class="team-logo" />
+        </a>
+        <h3>Squadra1</h3>
+        <p>Descrizione breve della squadra 1.</p>
+        <p><strong>Anno di fondazione:</strong> 2010</p>
+        <p><strong>Allenatore:</strong> Mister A</p>
+      </div>
+
+      <!-- Box squadra 2 -->
+      <div class="team-box">
+        <a href="squadre/squadra2.html" class="logo-link">
+          <img src="loghi/logo2.png" alt="Logo Squadra 2" class="team-logo" />
+        </a>
+        <h3>Squadra2</h3>
+        <p>Descrizione breve della squadra 2.</p>
+        <p><strong>Anno di fondazione:</strong> 2011</p>
+        <p><strong>Allenatore:</strong> Mister B</p>
+      </div>
+
+      <!-- Box squadra 3 -->
+      <div class="team-box">
+        <a href="squadre/squadra3.html" class="logo-link">
+          <img src="loghi/logo3.png" alt="Logo Squadra 3" class="team-logo" />
+        </a>
+        <h3>Squadra3</h3>
+        <p>Descrizione breve della squadra 3.</p>
+        <p><strong>Anno di fondazione:</strong> 2012</p>
+        <p><strong>Allenatore:</strong> Mister C</p>
+      </div>
+
+      <!-- Box squadra 4 -->
+      <div class="team-box">
+        <a href="squadre/squadra4.html" class="logo-link">
+          <img src="loghi/logo4.png" alt="Logo Squadra 4" class="team-logo" />
+        </a>
+        <h3>Squadra4</h3>
+        <p>Descrizione breve della squadra 4.</p>
+        <p><strong>Anno di fondazione:</strong> 2013</p>
+        <p><strong>Allenatore:</strong> Mister D</p>
+      </div>
+
+      <!-- Box squadra 5 -->
+      <div class="team-box">
+        <a href="squadre/squadra5.html" class="logo-link">
+          <img src="loghi/logo5.png" alt="Logo Squadra 5" class="team-logo" />
+        </a>
+        <h3>Squadra5</h3>
+        <p>Descrizione breve della squadra 5.</p>
+        <p><strong>Anno di fondazione:</strong> 2014</p>
+        <p><strong>Allenatore:</strong> Mister E</p>
+      </div>
+
+      <!-- Box squadra 6 -->
+      <div class="team-box">
+        <a href="squadre/squadra6.html" class="logo-link">
+          <img src="loghi/logo6.png" alt="Logo Squadra 6" class="team-logo" />
+        </a>
+        <h3>Squadra6</h3>
+        <p>Descrizione breve della squadra 6.</p>
+        <p><strong>Anno di fondazione:</strong> 2015</p>
+        <p><strong>Allenatore:</strong> Mister F</p>
+      </div>
+
+      <!-- Box squadra 7 -->
+      <div class="team-box">
+        <a href="squadre/squadra7.html" class="logo-link">
+          <img src="loghi/logo7.png" alt="Logo Squadra 7" class="team-logo" />
+        </a>
+        <h3>Squadra7</h3>
+        <p>Descrizione breve della squadra 7.</p>
+        <p><strong>Anno di fondazione:</strong> 2016</p>
+        <p><strong>Allenatore:</strong> Mister G</p>
+      </div>
+
+      <!-- Box squadra 8 -->
+      <div class="team-box">
+        <a href="squadre/squadra8.html" class="logo-link">
+          <img src="loghi/logo8.png" alt="Logo Squadra 8" class="team-logo" />
+        </a>
+        <h3>Squadra8</h3>
+        <p>Descrizione breve della squadra 8.</p>
+        <p><strong>Anno di fondazione:</strong> 2017</p>
+        <p><strong>Allenatore:</strong> Mister H</p>
+      </div>
+
+      <!-- Box squadra 9 -->
+      <div class="team-box">
+        <a href="squadre/squadra9.html" class="logo-link">
+          <img src="loghi/logo9.png" alt="Logo Squadra 9" class="team-logo" />
+        </a>
+        <h3>Squadra9</h3>
+        <p>Descrizione breve della squadra 9.</p>
+        <p><strong>Anno di fondazione:</strong> 2018</p>
+        <p><strong>Allenatore:</strong> Mister I</p>
+      </div>
+
+      <!-- Box squadra 10 -->
+      <div class="team-box">
+        <a href="squadre/squadra10.html" class="logo-link">
+          <img src="loghi/logo10.png" alt="Logo Squadra 10" class="team-logo" />
+        </a>
+        <h3>Squadra10</h3>
+        <p>Descrizione breve della squadra 10.</p>
+        <p><strong>Anno di fondazione:</strong> 2019</p>
+        <p><strong>Allenatore:</strong> Mister J</p>
+      </div>
+
+      <!-- Box squadra 11 -->
+      <div class="team-box">
+        <a href="squadre/squadra11.html" class="logo-link">
+          <img src="loghi/logo11.png" alt="Logo Squadra 11" class="team-logo" />
+        </a>
+        <h3>Squadra11</h3>
+        <p>Descrizione breve della squadra 11.</p>
+        <p><strong>Anno di fondazione:</strong> 2020</p>
+        <p><strong>Allenatore:</strong> Mister K</p>
+      </div>
+
+      <!-- Box squadra 12 -->
+      <div class="team-box">
+        <a href="squadre/squadra12.html" class="logo-link">
+          <img src="loghi/logo12.png" alt="Logo Squadra 12" class="team-logo" />
+        </a>
+        <h3>Squadra12</h3>
+        <p>Descrizione breve della squadra 12.</p>
+        <p><strong>Anno di fondazione:</strong> 2021</p>
+        <p><strong>Allenatore:</strong> Mister L</p>
+      </div>
     </div>
+
   </main>
 
   <footer>
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
   </footer>
 
-  <script src="squadre.js"></script>
 </body>
 </html>
