@@ -1,33 +1,36 @@
 /* --- Reset base --- */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #fafafa;
-  color: #222;
-  margin: 0;
-  padding: 0;
+  background-color: #121212;
+  color: #f07f00; /* arancione caldo */
   line-height: 1.5;
   font-size: 16px;
 }
 
 /* --- Link --- */
 a {
-  color: #0366d6;
+  color: #ff9f1c;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
 }
-a:hover {
-  color: #024a94;
+a:hover,
+a:focus {
+  color: #ffb84d;
+  outline: none;
 }
 
 /* --- Header --- */
 header {
-  background-color: #024a94;
+  background-color: #1e1e1e;
   padding: 1rem 2rem;
-  color: #fff;
+  box-shadow: 0 2px 6px rgba(240, 127, 0, 0.3);
+  color: #f07f00;
 }
 
 header nav {
@@ -39,27 +42,28 @@ header nav {
 
 header h1 {
   font-weight: 700;
-  font-size: 1.6rem;
-  margin: 0;
+  font-size: 1.8rem;
+  color: #f07f00;
 }
 
 header ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
+  gap: 1.2rem;
 }
 
 header ul li a {
   font-weight: 600;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 4px;
-  color: white;
+  color: #f07f00;
+  transition: background-color 0.3s ease;
 }
 header ul li a:hover,
 header ul li a:focus {
-  background-color: #02336d;
+  background-color: #ff9f1c;
+  color: #121212;
+  outline: none;
 }
 
 /* --- Container principale --- */
@@ -78,22 +82,22 @@ header ul li a:focus {
 
 /* --- Box singola squadra --- */
 .team-box {
-  background: white;
-  border: 1px solid #ddd;
+  background: #1e1e1e;
+  border: 1px solid #333;
   border-radius: 8px;
   padding: 1rem;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.15s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  transition: background-color 0.25s ease;
 }
 
 .team-box:hover,
 .team-box:focus-within {
-  background-color: #f0f4ff;
+  background-color: #2a2a2a;
   outline: none;
 }
 
@@ -103,35 +107,41 @@ header ul li a:focus {
   height: 80px;
   object-fit: contain;
   border-radius: 6px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.team-box:hover img.logo-squadra {
+  border-color: #ff9f1c;
 }
 
 /* --- Nome e info squadra --- */
 .team-box h3 {
   margin: 0;
   font-weight: 700;
-  font-size: 1.1rem;
-  color: #02336d;
+  font-size: 1.2rem;
+  color: #f07f00;
 }
 
 .team-box p {
   margin: 0;
   font-weight: 500;
   font-size: 0.9rem;
-  color: #555;
+  color: #f3a840;
 }
 
 /* --- Dettagli squadra --- */
 .team-details {
-  background: white;
+  background: #1e1e1e;
   max-width: 1024px;
   margin: 2rem auto;
   padding: 1.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   border-radius: 10px;
   display: none;
   position: relative;
   max-height: 600px;
   overflow-y: auto;
+  color: #f3a840;
 }
 
 /* Mostra dettagli */
@@ -147,13 +157,13 @@ header ul li a:focus {
   height: 130px;
   object-fit: contain;
   border-radius: 8px;
-  border: 2px solid #02336d;
+  border: 2px solid #ff9f1c;
 }
 
 /* Titoli dettagli */
 .team-details h3,
 .team-details h4 {
-  color: #02336d;
+  color: #ff9f1c;
   margin-top: 0;
   margin-bottom: 0.75rem;
   font-weight: 700;
@@ -163,7 +173,7 @@ header ul li a:focus {
 .team-details .team-info p {
   margin: 0.3rem 0;
   font-weight: 500;
-  color: #444;
+  color: #f3a840;
 }
 
 /* Bottone chiudi */
@@ -171,17 +181,17 @@ header ul li a:focus {
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: #e63946;
+  background-color: #ff3c00;
   border: none;
   color: white;
   font-weight: 700;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 #close-details:hover {
-  background-color: #b52b3a;
+  background-color: #cc3200;
 }
 
 /* Tabelle dettagli giocatori */
@@ -190,27 +200,29 @@ header ul li a:focus {
   border-collapse: collapse;
   margin-top: 1rem;
   font-size: 0.9rem;
+  color: #f3a840;
 }
 
 .team-details thead {
-  background-color: #02336d;
-  color: white;
+  background-color: #ff9f1c;
+  color: #121212;
   user-select: none;
 }
 
 .team-details th, .team-details td {
   padding: 0.5rem 0.7rem;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   text-align: center;
   word-wrap: break-word;
+  color: #f3a840;
 }
 
 .team-details tbody tr:nth-child(even) {
-  background-color: #f7f9fc;
+  background-color: #2a2a2a;
 }
 
 .team-details tbody tr:hover {
-  background-color: #dce4ff;
+  background-color: #3b3b3b;
 }
 
 /* Responsive */
@@ -261,8 +273,9 @@ header ul li a:focus {
     left: 10px;
     width: 45%;
     padding-left: 0.5rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: left;
+    color: #ff9f1c;
   }
 
   .team-details th {
@@ -272,18 +285,18 @@ header ul li a:focus {
 
 /* Bottoni globali */
 button {
-  background-color: #02336d;
-  color: white;
+  background-color: #ff9f1c;
+  color: #121212;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
 }
 
 button:hover,
 button:focus {
-  background-color: #012a57;
+  background-color: #cc7e14;
   outline: none;
 }
