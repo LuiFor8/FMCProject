@@ -52,14 +52,22 @@ async function caricaModuli() {
 
     moduli.forEach(m => {
       const riga = document.createElement('tr');
+
+      const tdModulo = document.createElement('td');
+      tdModulo.textContent = m.modulo;
+
+      const tdIniziale = document.createElement('td');
+      tdIniziale.textContent = m.valoreIniziale;
+
+      const tdAttuale = document.createElement('td');
+      tdAttuale.textContent = m.valoreAttuale;
       if (m.valoreAttuale === maxValoreAttuale) {
-        riga.classList.add('highlight');
+        tdAttuale.classList.add('highlight-cell');
       }
-      riga.innerHTML = `
-        <td>${m.modulo}</td>
-        <td>${m.valoreIniziale}</td>
-        <td>${m.valoreAttuale}</td>
-      `;
+
+      riga.appendChild(tdModulo);
+      riga.appendChild(tdIniziale);
+      riga.appendChild(tdAttuale);
       tbody.appendChild(riga);
     });
 
