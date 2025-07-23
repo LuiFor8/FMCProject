@@ -96,16 +96,16 @@ header ul li a:focus {
 }
 
 .team-box img.logo-squadra {
-  max-width: 100px;  /* larghezza massima */
-  max-height: 100px; /* altezza massima */
-  width: auto;       /* mantieni proporzioni */
-  height: auto;
-  display: block;
-  margin: 0 auto 1rem auto;
-  object-fit: contain;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  width: 80px !important;
+  height: 80px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto 1rem auto !important;
+  border-radius: 8px !important;
+  border: 2px solid transparent !important;
+  transition: border-color 0.3s ease !important;
 }
 .team-box:hover img.logo-squadra {
   border-color: #023e8a;
