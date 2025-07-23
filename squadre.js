@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.text();
     })
     .then((csvText) => {
-      // Usa PapaParse per un parsing robusto
       const results = Papa.parse(csvText, { header: true, skipEmptyLines: true });
       if (results.errors.length) {
         console.error("Errori nel parsing CSV:", results.errors);
@@ -53,53 +52,90 @@ document.addEventListener("DOMContentLoaded", function () {
         Squadra12: { fondazione: 2021, allenatore: "Mister L" },
       };
 
-      const container = document.getElementById("squadre-container");
-      if (!container) {
-        console.error("Elemento #squadre-container non trovato nel DOM");
+      const container = document.getElementById("teams-container");
+      const detailsContainer = document.getElementById("team-details-container");
+      if (!container || !detailsContainer) {
+        console.error("Elemento #teams-container o #team-details-container non trovato nel DOM");
         return;
       }
 
       // Pulisce contenuto precedente
       container.innerHTML = "";
+      detailsContainer.innerHTML = "";
 
-      Object.keys(giocatoriPerSquadra).forEach((nomeSquadra) => {
-        const squadraBox = document.createElement("div");
-        squadraBox.className = "squadra-box";
+      // Funzione per mostrare dettagli di una squadra
+      function mostraDettagliSquadra(nomeSquadra) {
+        const squadraInfo = infoSquadre[nomeSquadra] || {};
+        const giocatori = giocatoriPerSquadra[nomeSquadra] || [];
 
-        const logoImg = document.createElement("img");
-        logoImg.src = `loghi/logo${nomeSquadra.replace("Squadra", "")}.png`;
-        logoImg.alt = `Logo ${nomeSquadra}`;
-        logoImg.className = "logo-squadra";
+        detailsContainer.innerHTML = ""; // reset dettagli
 
-        const nomeH3 = document.createElement("h3");
-        nomeH3.textContent = nomeSquadra;
+        const titolo = document.createElement("h2");
+        titolo.textContent = nomeSquadra;
+
+        const logo = document.createElement("img");
+        logo.src = `loghi/logo${nomeSquadra.replace("Squadra", "")}.png`;
+        logo.alt = `Logo ${nomeSquadra}`;
+        logo.className = "logo-squadra-large";
 
         const fondazione = document.createElement("p");
-        fondazione.textContent = `Anno di fondazione: ${infoSquadre[nomeSquadra]?.fondazione || "N/D"}`;
+        fondazione.textContent = `Anno di fondazione: ${squadraInfo.fondazione || "N/D"}`;
 
         const allenatore = document.createElement("p");
-        allenatore.textContent = `Allenatore: ${infoSquadre[nomeSquadra]?.allenatore || "N/D"}`;
+        allenatore.textContent = `Allenatore: ${squadraInfo.allenatore || "N/D"}`;
 
         const lista = document.createElement("ul");
-        if (giocatoriPerSquadra[nomeSquadra].length === 0) {
+        if (giocatori.length === 0) {
           const li = document.createElement("li");
           li.textContent = "Nessun giocatore assegnato.";
           lista.appendChild(li);
         } else {
-          giocatoriPerSquadra[nomeSquadra].forEach((giocatore) => {
+          giocatori.forEach((g) => {
             const li = document.createElement("li");
-            li.textContent = `${giocatore.nome} (${giocatore.ruolo}, ${giocatore.mantra}) - Anni contratto: ${giocatore.anniContratto} - Primavera: ${giocatore.primavera}`;
+            li.textContent = `${g.nome} (${g.ruolo}, ${g.mantra}) - Anni contratto: ${g.anniContratto} - Primavera: ${g.primavera}`;
             lista.appendChild(li);
           });
         }
 
-        squadraBox.appendChild(logoImg);
-        squadraBox.appendChild(nomeH3);
-        squadraBox.appendChild(fondazione);
-        squadraBox.appendChild(allenatore);
-        squadraBox.appendChild(lista);
+        detailsContainer.appendChild(titolo);
+        detailsContainer.appendChild(logo);
+        detailsContainer.appendChild(fondazione);
+        detailsContainer.appendChild(allenatore);
+        detailsContainer.appendChild(lista);
+
+        // Scrolla la pagina fino ai dettagli (opzionale)
+        detailsContainer.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Crea i box squadre nel container principale
+      for (let i = 1; i <= 12; i++) {
+        const nomeSquadra = "Squadra" + i;
+
+        const squadraBox = document.createElement("div");
+        squadraBox.className = "team-card";
+
+        const logo = document.createElement("img");
+        logo.src = `loghi/logo${i}.png`;
+        logo.alt = `Logo ${nomeSquadra}`;
+        logo.className = "logo-squadra";
+        logo.style.cursor = "pointer";
+
+        logo.addEventListener("click", () => {
+          mostraDettagliSquadra(nomeSquadra);
+        });
+
+        const nomeSpan = document.createElement("span");
+        nomeSpan.textContent = nomeSquadra;
+        nomeSpan.className = "team-name";
+
+        squadraBox.appendChild(logo);
+        squadraBox.appendChild(nomeSpan);
+
         container.appendChild(squadraBox);
-      });
+      }
+
+      // Mostra di default la prima squadra
+      mostraDettagliSquadra("Squadra1");
     })
     .catch((error) => {
       console.error("Errore nel caricamento o parsing del file CSV:", error);
