@@ -1,50 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const tableBody = document.querySelector("#tabellaCalciatori tbody");
+  const searchInput = document.getElementById("searchInput");
+  const filtroSquadra = document.getElementById("filtroSquadra");
+  const filtroRuolo = document.getElementById("filtroRuolo");
+  const filtroProprietario = document.getElementById("filtroProprietario");
+
+  let calciatori = [];
+
   Papa.parse("calciatori.csv", {
-    download: true,
     header: true,
+    download: true,
+    skipEmptyLines: true,
     complete: function (results) {
-      let data = results.data.filter(row => Object.values(row).some(cell => cell.trim() !== ""));
-      const tbody = document.querySelector("#tabellaCalciatori tbody");
-      const filtroSquadra = document.getElementById("filtroSquadra");
-      const filtroRuolo = document.getElementById("filtroRuolo");
-      const filtroProprietario = document.getElementById("filtroProprietario");
-      const searchInput = document.getElementById("searchInput");
+      calciatori = results.data;
+      console.log("CSV caricato:", calciatori); // DEBUG
+      popolaFiltri();
+      mostraCalciatori(calciatori);
+    },
+    error: function (error) {
+      console.error("Errore durante il parsing del CSV:", error);
+    },
+  });
 
-      let currentSort = { column: null, asc: true };
+  function popolaFiltri() {
+    const squadre = new Set();
+    const ruoli = new Set();
+    const proprietari = new Set();
 
-      const squadre = new Set(), ruoli = new Set(), proprietari = new Set(), annicontratto = new Set();
+    calciatori.forEach(c => {
+      if (c.Squadra) squadre.add(c.Squadra);
+      if (c.Ruolo) ruoli.add(c.Ruolo);
+      if (c.Proprietario) proprietari.add(c.Proprietario);
+    });
 
-      data.forEach(row => {
-        squadre.add(row.Squadra);
-        ruoli.add(row.Ruolo);
-        proprietari.add(row.Proprietario);
-        annicontratto.add(row.AnniContratto);
-      });
+    for (let s of [...squadre].sort()) {
+      const option = new Option(s, s);
+      filtroSquadra.add(option);
+    }
 
-      squadre.forEach(s => {
-        const opt = document.createElement("option");
-        opt.value = opt.textContent = s;
-        filtroSquadra.appendChild(opt);
-      });
+    for (let r of [...ruoli].sort()) {
+      const option = new Option(r, r);
+      filtroRuolo.add(option);
+    }
 
-      ruoli.forEach(r => {
-        const opt = document.createElement("option");
-        opt.value = opt.textContent = r;
-        filtroRuolo.appendChild(opt);
-      });
+    for (let p of [...proprietari].sort()) {
+      const option = new Option(p, p);
+      filtroProprietario.add(option);
+    }
+  }
 
-      proprietari.forEach(p => {
-        const opt = document.createElement("option");
-        opt.value = opt.textContent = p;
-        filtroProprietario.appendChild(opt);
-      });
+  function mostraCalciatori(dati) {
+    tableBody.innerHTML = "";
 
-      // Rendering della tabella
-      function renderTable(rows) {
-        tbody.innerHTML = "";
-        rows.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${row.Nome}</td>
-            <td>${row.Ruolo}</td>
-            <td>${r
+    dati.forEach(c => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${c.Nome}</td>
+        <td>${c.Ruolo}</td>
+        <td>${c.Mantra}</td>
+        <td>${c.Anno}</td>
+        <td>${c.Primavera}</td>
+        <td>${c.Squadra}</td>
+        <td>${c.Proprietario}</td>
+        <td>${c.ValoreIniziale}</td>
+        <td>${c.AnniContratto}</td>
+        <td>${c.ValoreContratto}</td>
+        <td>${c.TrasferimentoFuturo}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  function filtraCalciatori() {
+    const query = searchInput.value.toLowerCase();
+    const squadra = filtroSquadra.value;
+    const ruolo = filtroRuolo.value;
+    const proprietario = filtroProprietario.value;
+
+    const filtrati = calciatori.filter(c => {
+      const matchTesto =
+        c.Nome.toLowerCase().includes(query) ||
+        c.Squadra.toLowerCase().includes(query) ||
+        c.Proprietario.toLowerCase().includes(query);
+
+      const matchSquadra = !squadra || c.Squadra === squadra;
+      const matchRuolo = !ruolo || c.Ruolo === ruolo;
+      const matchProprietario = !proprietario || c.Proprietario === proprietario;
+
+      return matchTesto && matchSquadra && matchRuolo && matchProprietario;
+    });
+
+    mostraCalciatori(filtrati);
+  }
+
+  searchInput.addEventListener("input", filtraCalciatori);
+  filtroSquadra.addEventListener("change", filtraCalciatori);
+  filtroRuolo.addEventLis
