@@ -146,8 +146,8 @@ table#tabellaCalciatori td:nth-child(1) {
 table#tabellaCalciatori th:not(:first-child),
 table#tabellaCalciatori td:not(:first-child) {
   width: auto;           /* larghezza automatica */
-  min-width: 80px;
-  max-width: 130px;
+  min-width: 90px;
+  max-width: 140px;
   white-space: nowrap;   /* evita invio a capo per i dati */
   text-align: center;
   padding: 0.6rem 0.8rem;
