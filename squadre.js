@@ -1,197 +1,106 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const teamsContainer = document.getElementById("teams-container");
-  const detailsContainer = document.getElementById("team-details-container");
-
-  // Definisci le 12 squadre con nome, logo e descrizione
+document.addEventListener("DOMContentLoaded", function () {
   const squadreInfo = {
-    Squadra1: {
-      nome: "Squadra 1",
-      logo: "loghi/logo1.png",
-      descrizione: "Descrizione breve della Squadra 1."
-    },
-    Squadra2: {
-      nome: "Squadra 2",
-      logo: "loghi/logo2.png",
-      descrizione: "Descrizione breve della Squadra 2."
-    },
-    Squadra3: {
-      nome: "Squadra 3",
-      logo: "loghi/logo3.png",
-      descrizione: "Descrizione breve della Squadra 3."
-    },
-    Squadra4: {
-      nome: "Squadra 4",
-      logo: "loghi/logo4.png",
-      descrizione: "Descrizione breve della Squadra 4."
-    },
-    Squadra5: {
-      nome: "Squadra 5",
-      logo: "loghi/logo5.png",
-      descrizione: "Descrizione breve della Squadra 5."
-    },
-    Squadra6: {
-      nome: "Squadra 6",
-      logo: "loghi/logo6.png",
-      descrizione: "Descrizione breve della Squadra 6."
-    },
-    Squadra7: {
-      nome: "Squadra 7",
-      logo: "loghi/logo7.png",
-      descrizione: "Descrizione breve della Squadra 7."
-    },
-    Squadra8: {
-      nome: "Squadra 8",
-      logo: "loghi/logo8.png",
-      descrizione: "Descrizione breve della Squadra 8."
-    },
-    Squadra9: {
-      nome: "Squadra 9",
-      logo: "loghi/logo9.png",
-      descrizione: "Descrizione breve della Squadra 9."
-    },
-    Squadra10: {
-      nome: "Squadra 10",
-      logo: "loghi/logo10.png",
-      descrizione: "Descrizione breve della Squadra 10."
-    },
-    Squadra11: {
-      nome: "Squadra 11",
-      logo: "loghi/logo11.png",
-      descrizione: "Descrizione breve della Squadra 11."
-    },
-    Squadra12: {
-      nome: "Squadra 12",
-      logo: "loghi/logo12.png",
-      descrizione: "Descrizione breve della Squadra 12."
-    }
+    Squadra1: { nome: "Milan", logo: "loghi/logo1.png", annoFondazione: 1899, allenatore: "Stefano Pioli" },
+    Squadra2: { nome: "Inter", logo: "loghi/logo2.png", annoFondazione: 1908, allenatore: "Simone Inzaghi" },
+    Squadra3: { nome: "Juventus", logo: "loghi/logo3.png", annoFondazione: 1897, allenatore: "Massimiliano Allegri" },
+    Squadra4: { nome: "Napoli", logo: "loghi/logo4.png", annoFondazione: 1926, allenatore: "Luciano Spalletti" },
+    Squadra5: { nome: "Roma", logo: "loghi/logo5.png", annoFondazione: 1927, allenatore: "José Mourinho" },
+    Squadra6: { nome: "Lazio", logo: "loghi/logo6.png", annoFondazione: 1900, allenatore: "Maurizio Sarri" },
+    Squadra7: { nome: "Fiorentina", logo: "loghi/logo7.png", annoFondazione: 1926, allenatore: "Vincenzo Italiano" },
+    Squadra8: { nome: "Atalanta", logo: "loghi/logo8.png", annoFondazione: 1907, allenatore: "Gian Piero Gasperini" },
+    Squadra9: { nome: "Torino", logo: "loghi/logo9.png", annoFondazione: 1906, allenatore: "Ivan Juric" },
+    Squadra10: { nome: "Sassuolo", logo: "loghi/logo10.png", annoFondazione: 1920, allenatore: "Alessio Dionisi" },
+    Squadra11: { nome: "Bologna", logo: "loghi/logo11.png", annoFondazione: 1909, allenatore: "Sinisa Mihajlovic" },
+    Squadra12: { nome: "Verona", logo: "loghi/logo12.png", annoFondazione: 1903, allenatore: "Marco Baroni" },
   };
 
-  // Memorizza dati calciatori (caricati da CSV)
-  let calciatoriData = [];
-
-  // Carica il CSV calciatori
   Papa.parse("calciatori.csv", {
     download: true,
     header: true,
-    complete: function(results) {
-      calciatoriData = results.data.filter(r => Object.values(r).some(c => c.trim() !== ""));
-      creaTeamBoxes();
+    complete: function (results) {
+      const data = results.data.filter(row => Object.values(row).some(cell => cell.trim() !== ""));
+      
+      const teamsContainer = document.getElementById("teamsContainer");
+      const squadreDetailsContainer = document.getElementById("squadreDetailsContainer");
+
+      // Genera box squadre (logo link, nome senza link)
+      Object.entries(squadreInfo).forEach(([key, squadra]) => {
+        const teamDiv = document.createElement("div");
+        teamDiv.classList.add("team");
+
+        // Link sul logo
+        const logoLink = document.createElement("a");
+        logoLink.href = `#${key}`;
+        const logoImg = document.createElement("img");
+        logoImg.src = squadra.logo;
+        logoImg.alt = `Logo ${squadra.nome}`;
+        logoImg.width = 50;
+        logoImg.height = 50;
+        logoLink.appendChild(logoImg);
+
+        // Nome senza link
+        const nomeSpan = document.createElement("span");
+        nomeSpan.textContent = squadra.nome;
+        nomeSpan.classList.add("team-name");
+
+        // Descrizione placeholder
+        const descrizione = document.createElement("p");
+        descrizione.textContent = "Descrizione breve della squadra.";
+
+        teamDiv.appendChild(logoLink);
+        teamDiv.appendChild(nomeSpan);
+        teamDiv.appendChild(descrizione);
+        teamsContainer.appendChild(teamDiv);
+      });
+
+      // Sezioni dedicate alle squadre
+      Object.entries(squadreInfo).forEach(([key, squadra]) => {
+        const section = document.createElement("section");
+        section.id = key;
+        section.classList.add("team-detail");
+
+        // Titolo e logo
+        const title = document.createElement("h3");
+        title.textContent = squadra.nome;
+
+        const logoImg = document.createElement("img");
+        logoImg.src = squadra.logo;
+        logoImg.alt = `Logo ${squadra.nome}`;
+        logoImg.width = 80;
+        logoImg.height = 80;
+
+        // Anno fondazione e allenatore
+        const infoDiv = document.createElement("div");
+        infoDiv.classList.add("team-info");
+        infoDiv.innerHTML = `
+          <p><strong>Anno di fondazione:</strong> ${squadra.annoFondazione}</p>
+          <p><strong>Allenatore:</strong> ${squadra.allenatore}</p>
+        `;
+
+        // Lista giocatori di questa squadra
+        const giocatori = data.filter(g => g.Proprietario === key);
+
+        const giocatoriList = document.createElement("ul");
+        giocatoriList.classList.add("giocatori-list");
+        if (giocatori.length === 0) {
+          giocatoriList.innerHTML = "<li>Nessun giocatore attualmente in questa squadra.</li>";
+        } else {
+          giocatori.forEach(g => {
+            const li = document.createElement("li");
+            li.textContent = `${g.Nome} - ${g.Ruolo} (${g.Mantra}), Anno: ${g.Anno}`;
+            giocatoriList.appendChild(li);
+          });
+        }
+
+        section.appendChild(title);
+        section.appendChild(logoImg);
+        section.appendChild(infoDiv);
+        section.appendChild(giocatoriList);
+        squadreDetailsContainer.appendChild(section);
+      });
     },
-    error: function(err) {
-      console.error("Errore caricamento CSV calciatori:", err);
-      teamsContainer.textContent = "Errore nel caricamento dati calciatori.";
+    error: function (err) {
+      console.error("Errore caricamento CSV:", err);
     }
   });
-
-  // Crea le card delle squadre dinamicamente
-  function creaTeamBoxes() {
-    teamsContainer.innerHTML = "";
-    for (const [key, info] of Object.entries(squadreInfo)) {
-      const div = document.createElement("div");
-      div.className = "team";
-
-      const logoLink = document.createElement("a");
-      logoLink.href = "#";
-      logoLink.dataset.teamKey = key;
-      logoLink.className = "team-link";
-      logoLink.title = `Vai a ${info.nome}`;
-
-      const img = document.createElement("img");
-      img.src = info.logo;
-      img.alt = `Logo ${info.nome}`;
-      img.width = 80;
-      img.height = 80;
-
-      logoLink.appendChild(img);
-
-      const nameLink = document.createElement("a");
-      nameLink.href = "#";
-      nameLink.dataset.teamKey = key;
-      nameLink.className = "team-link";
-      nameLink.textContent = info.nome;
-      nameLink.title = `Vai a ${info.nome}`;
-
-      const descr = document.createElement("p");
-      descr.textContent = info.descrizione;
-
-      div.appendChild(logoLink);
-      div.appendChild(nameLink);
-      div.appendChild(descr);
-
-      teamsContainer.appendChild(div);
-    }
-
-    // Event listener click per logo e nome
-    teamsContainer.querySelectorAll(".team-link").forEach(el => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        const teamKey = e.currentTarget.dataset.teamKey;
-        mostraDettagliSquadra(teamKey);
-        // Scroll alla sezione dettagli
-        detailsContainer.scrollIntoView({behavior: "smooth"});
-      });
-    });
-  }
-
-  // Mostra dettagli e giocatori della squadra selezionata
-  function mostraDettagliSquadra(teamKey) {
-    const info = squadreInfo[teamKey];
-    if (!info) return;
-
-    const giocatoriSquadra = calciatoriData.filter(c => c.Proprietario === teamKey);
-
-    let html = `
-      <section id="team-details" class="team-details">
-        <h2>${info.nome}</h2>
-        <img src="${info.logo}" alt="Logo ${info.nome}" width="120" height="120" />
-        <p>${info.descrizione}</p>
-
-        <h3>Giocatori di ${info.nome}</h3>
-    `;
-
-    if (giocatoriSquadra.length === 0) {
-      html += `<p><em>Nessun giocatore assegnato a questa squadra.</em></p>`;
-    } else {
-      html += `<table class="players-table" aria-label="Giocatori di ${info.nome}">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Ruolo</th>
-            <th>Mantra</th>
-            <th>Anno</th>
-            <th>Primavera</th>
-            <th>Squadra Reale</th>
-            <th>Valore Iniziale</th>
-            <th>Anni Contratto</th>
-            <th>Valore Contratto</th>
-            <th>Trasferimento Futuro</th>
-          </tr>
-        </thead>
-        <tbody>
-      `;
-
-      giocatoriSquadra.forEach(g => {
-        html += `
-          <tr>
-            <td>${g.Nome}</td>
-            <td>${g.Ruolo}</td>
-            <td>${g.Mantra}</td>
-            <td>${g.Anno}</td>
-            <td>${g.Primavera}</td>
-            <td>${g.Squadra}</td>
-            <td>${g.ValoreIniziale}</td>
-            <td>${g.AnniContratto}</td>
-            <td>${g.ValoreContratto}</td>
-            <td>${g.TrasferimentoFuturo}</td>
-          </tr>
-        `;
-      });
-
-      html += "</tbody></table>";
-    }
-
-    html += "</section>";
-
-    detailsContainer.innerHTML = html;
-  }
 });
