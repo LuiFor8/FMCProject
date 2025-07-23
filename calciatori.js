@@ -95,4 +95,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
   searchInput.addEventListener("input", filtraCalciatori);
   filtroSquadra.addEventListener("change", filtraCalciatori);
-  filtroRuolo.addEventLis
+  filtroRuolo.addEventListener("change", filtraCalciatori);
+  filtroProprietario.addEventListener("change", filtraCalciatori);
+
+  // Ordinamento cliccando sulle intestazioni
+  document.querySelectorAll("th.sortable").forEach(th => {
+    th.style.cursor = "pointer";
+    let asc = true;
+
+    th.addEventListener("click", () => {
+      const colonna = th.textContent.trim().replace(/\s+/g, "");
+      calciatori.sort((a, b) => {
+        let v1 = a[colonna] || "";
+        let v2 = b[colonna] || "";
+
+        // Prova a fare confronto numerico
+        const n1 = parseFloat(v1);
+        const n2 = parseFloat(v2);
+        if (!isNaN(n1) && !isNaN(n2)) {
+          return asc ? n1 - n2 : n2 - n1;
+        }
+
+        return asc
+          ? v1.toString().localeCompare(v2)
+          : v2.toString().localeCompare(v1);
+      });
+
+      asc = !asc;
+      mostraCalciatori(calciatori);
+    });
+  });
+});
