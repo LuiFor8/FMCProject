@@ -1,5 +1,5 @@
 Nome,Ruolo,Mantra,Anno,Primavera,Squadra,Proprietario,ValoreIniziale,AnniContratto,ValoreContratto,TrasferimentoFuturo
-Mario Rossi,Attaccante,A,1995,No,Squadra A,Luca,12.5,2,1.3,No
-Luca Bianchi,Centrocampista,M/C,2000,No,Squadra B,Marco,8.0,1,0.8,Si
-Gianni Verdi,Difensore,D,2004,Si,Squadra A,Svincolato,6.2,4,0.6,No
+Mario Rossi,Attaccante,A,1995,No,Milan,Squadra1,12.5,2,1.3,No
+Luca Bianchi,Centrocampista,M/C,2000,No,Inter,Squadra2,8.0,1,0.8,Si
+Gianni Verdi,Difensore,D,2004,Si,Juventus,Svincolato,6.2,4,0.6,No
 
