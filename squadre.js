@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = results.data;
 
       const giocatoriPerSquadra = {};
-      // Inizializza 12 squadre vuote
       for (let i = 1; i <= 12; i++) {
         giocatoriPerSquadra["Squadra" + i] = [];
       }
@@ -51,81 +50,92 @@ document.addEventListener("DOMContentLoaded", function () {
         Squadra12: { fondazione: 2021, allenatore: "Mister L" },
       };
 
-      const container = document.getElementById("squadre-container");
-      const dettagliSection = document.getElementById("dettagli-squadra");
-      const dettagliContent = document.getElementById("dettagli-content");
-      const closeBtn = document.getElementById("close-details");
+      const container = document.getElementById("teams-container");
+      const detailsContainer = document.getElementById("team-details-container");
 
-      // Genera i box delle squadre
-      for (let i = 1; i <= 12; i++) {
-        const nomeSquadra = "Squadra" + i;
-        const box = document.createElement("div");
-        box.className = "team-box";
+      // Pulizia contenuto
+      container.innerHTML = "";
+      detailsContainer.innerHTML = "";
+
+      // Funzione per creare la scheda dettagliata
+      function showTeamDetails(nomeSquadra) {
+        const squadraInfo = infoSquadre[nomeSquadra];
+        const giocatori = giocatoriPerSquadra[nomeSquadra];
+
+        // Reset contenuto dettagli
+        detailsContainer.innerHTML = "";
+
+        const logoLarge = document.createElement("img");
+        logoLarge.src = `loghi/logo${nomeSquadra.replace("Squadra", "")}.png`;
+        logoLarge.alt = `Logo ${nomeSquadra}`;
+        logoLarge.className = "team-logo-large";
+
+        const titolo = document.createElement("h3");
+        titolo.textContent = nomeSquadra;
+
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "team-info";
+
+        const fondazione = document.createElement("p");
+        fondazione.textContent = `Anno di fondazione: ${squadraInfo?.fondazione || "N/D"}`;
+
+        const allenatore = document.createElement("p");
+        allenatore.textContent = `Allenatore: ${squadraInfo?.allenatore || "N/D"}`;
+
+        infoDiv.appendChild(fondazione);
+        infoDiv.appendChild(allenatore);
+
+        const lista = document.createElement("ul");
+        if (giocatori.length === 0) {
+          const li = document.createElement("li");
+          li.textContent = "Nessun giocatore assegnato.";
+          lista.appendChild(li);
+        } else {
+          giocatori.forEach((g) => {
+            const li = document.createElement("li");
+            li.textContent = `${g.nome} (${g.ruolo}, ${g.mantra}) - Anni contratto: ${g.anniContratto} - Primavera: ${g.primavera}`;
+            lista.appendChild(li);
+          });
+        }
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Chiudi";
+        closeBtn.id = "close-details";
+        closeBtn.addEventListener("click", () => {
+          detailsContainer.innerHTML = "";
+        });
+
+        detailsContainer.appendChild(closeBtn);
+        detailsContainer.appendChild(logoLarge);
+        detailsContainer.appendChild(titolo);
+        detailsContainer.appendChild(infoDiv);
+        detailsContainer.appendChild(lista);
+
+        // Scrolla la pagina fino alla sezione dettagli
+        detailsContainer.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Creo le card delle squadre con logo cliccabile
+      Object.keys(giocatoriPerSquadra).forEach((nomeSquadra) => {
+        const card = document.createElement("div");
+        card.className = "team-box";
 
         const logo = document.createElement("img");
-        logo.src = `loghi/logo${i}.png`;
+        logo.src = `loghi/logo${nomeSquadra.replace("Squadra", "")}.png`;
         logo.alt = `Logo ${nomeSquadra}`;
         logo.className = "team-logo";
         logo.style.cursor = "pointer";
 
-        // Al click sul logo mostra dettagli squadra
-        logo.addEventListener("click", () => {
-          dettagliContent.innerHTML = "";
-          const info = infoSquadre[nomeSquadra] || {};
-          const giocatori = giocatoriPerSquadra[nomeSquadra] || [];
+        // click sul logo apre i dettagli
+        logo.addEventListener("click", () => showTeamDetails(nomeSquadra));
 
-          const h2 = document.createElement("h2");
-          h2.textContent = nomeSquadra;
-
-          const img = document.createElement("img");
-          img.src = logo.src;
-          img.alt = logo.alt;
-          img.className = "team-logo-large";
-
-          const pFond = document.createElement("p");
-          pFond.textContent = `Anno di fondazione: ${info.fondazione || "N/D"}`;
-
-          const pAll = document.createElement("p");
-          pAll.textContent = `Allenatore: ${info.allenatore || "N/D"}`;
-
-          const pTitolo = document.createElement("p");
-          pTitolo.textContent = "Giocatori:";
-
-          const ul = document.createElement("ul");
-          if (giocatori.length === 0) {
-            const li = document.createElement("li");
-            li.textContent = "Nessun giocatore assegnato.";
-            ul.appendChild(li);
-          } else {
-            giocatori.forEach((g) => {
-              const li = document.createElement("li");
-              li.textContent = `${g.nome} (${g.ruolo}, ${g.mantra}) - Anni contratto: ${g.anniContratto} - Primavera: ${g.primavera}`;
-              ul.appendChild(li);
-            });
-          }
-
-          dettagliContent.appendChild(h2);
-          dettagliContent.appendChild(img);
-          dettagliContent.appendChild(pFond);
-          dettagliContent.appendChild(pAll);
-          dettagliContent.appendChild(pTitolo);
-          dettagliContent.appendChild(ul);
-
-          dettagliSection.style.display = "block";
-          window.scrollTo({ top: dettagliSection.offsetTop, behavior: "smooth" });
-        });
-
-        const nome = document.createElement("p");
+        const nome = document.createElement("h3");
         nome.textContent = nomeSquadra;
 
-        box.appendChild(logo);
-        box.appendChild(nome);
+        card.appendChild(logo);
+        card.appendChild(nome);
 
-        container.appendChild(box);
-      }
-
-      closeBtn.addEventListener("click", () => {
-        dettagliSection.style.display = "none";
+        container.appendChild(card);
       });
     })
     .catch((error) => {
