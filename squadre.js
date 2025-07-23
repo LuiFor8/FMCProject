@@ -1,45 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
   fetch("calciatori.csv")
-    .then((response) => response.text())
-    .then((data) => {
-      const lines = data.trim().split("\n");
-      const headers = lines[0].split(",");
-
-      const squadraIndex = headers.indexOf("Proprietario");
-      const nomeIndex = headers.indexOf("Nome");
-      const ruoloIndex = headers.indexOf("Ruolo");
-      const mantraIndex = headers.indexOf("Mantra");
-      const annoIndex = headers.indexOf("Anno");
-      const primaveraIndex = headers.indexOf("Primavera");
-      const squadraRealeIndex = headers.indexOf("Squadra");
-      const valoreInizialeIndex = headers.indexOf("ValoreIniziale");
-      const anniContrattoIndex = headers.indexOf("AnniContratto");
-      const valoreContrattoIndex = headers.indexOf("ValoreContratto");
-      const trasferimentoFuturoIndex = headers.indexOf("TrasferimentoFuturo");
-
-      const giocatoriPerSquadra = {};
-
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(",");
-        const proprietario = values[squadraIndex].trim();
-
-        if (!giocatoriPerSquadra[proprietario]) {
-          giocatoriPerSquadra[proprietario] = [];
-        }
-
-        giocatoriPerSquadra[proprietario].push({
-          nome: values[nomeIndex],
-          ruolo: values[ruoloIndex],
-          mantra: values[mantraIndex],
-          anno: values[annoIndex],
-          primavera: values[primaveraIndex],
-          squadra: values[squadraRealeIndex],
-          valoreIniziale: values[valoreInizialeIndex],
-          anniContratto: values[anniContrattoIndex],
-          valoreContratto: values[valoreContrattoIndex],
-          trasferimentoFuturo: values[trasferimentoFuturoIndex],
-        });
+    .then((response) => {
+      if (!response.ok) throw new Error("Errore nel caricamento del CSV");
+      return response.text();
+    })
+    .then((csvText) => {
+      // Usa PapaParse per un parsing robusto
+      const results = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+      if (results.errors.length) {
+        console.error("Errori nel parsing CSV:", results.errors);
+        return;
       }
+      const data = results.data;
+
+      // Mappa giocatori per squadra proprietario
+      const giocatoriPerSquadra = {};
+      // Inizializza tutte le 12 squadre (anche se non hanno giocatori)
+      for (let i = 1; i <= 12; i++) {
+        giocatoriPerSquadra["Squadra" + i] = [];
+      }
+
+      data.forEach((row) => {
+        const proprietario = row.Proprietario?.trim();
+        if (proprietario && giocatoriPerSquadra.hasOwnProperty(proprietario)) {
+          giocatoriPerSquadra[proprietario].push({
+            nome: row.Nome || "",
+            ruolo: row.Ruolo || "",
+            mantra: row.Mantra || "",
+            anno: row.Anno || "",
+            primavera: row.Primavera || "",
+            squadraReale: row.Squadra || "",
+            valoreIniziale: row.ValoreIniziale || "",
+            anniContratto: row.AnniContratto || "",
+            valoreContratto: row.ValoreContratto || "",
+            trasferimentoFuturo: row.TrasferimentoFuturo || "",
+          });
+        }
+      });
 
       const infoSquadre = {
         Squadra1: { fondazione: 2010, allenatore: "Mister A" },
@@ -57,6 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       const container = document.getElementById("squadre-container");
+      if (!container) {
+        console.error("Elemento #squadre-container non trovato nel DOM");
+        return;
+      }
+
+      // Pulisce contenuto precedente
+      container.innerHTML = "";
 
       Object.keys(giocatoriPerSquadra).forEach((nomeSquadra) => {
         const squadraBox = document.createElement("div");
@@ -67,33 +71,37 @@ document.addEventListener("DOMContentLoaded", function () {
         logoImg.alt = `Logo ${nomeSquadra}`;
         logoImg.className = "logo-squadra";
 
-        const nome = document.createElement("h3");
-        nome.textContent = nomeSquadra;
+        const nomeH3 = document.createElement("h3");
+        nomeH3.textContent = nomeSquadra;
 
         const fondazione = document.createElement("p");
-        fondazione.textContent = `Anno di fondazione: ${
-          infoSquadre[nomeSquadra]?.fondazione || "N/D"
-        }`;
+        fondazione.textContent = `Anno di fondazione: ${infoSquadre[nomeSquadra]?.fondazione || "N/D"}`;
 
         const allenatore = document.createElement("p");
-        allenatore.textContent = `Allenatore: ${
-          infoSquadre[nomeSquadra]?.allenatore || "N/D"
-        }`;
+        allenatore.textContent = `Allenatore: ${infoSquadre[nomeSquadra]?.allenatore || "N/D"}`;
 
         const lista = document.createElement("ul");
-
-        giocatoriPerSquadra[nomeSquadra].forEach((giocatore) => {
+        if (giocatoriPerSquadra[nomeSquadra].length === 0) {
           const li = document.createElement("li");
-          li.textContent = `${giocatore.nome} (${giocatore.ruolo}, ${giocatore.mantra}) - ${giocatore.anniContratto} anni - Primavera: ${giocatore.primavera}`;
+          li.textContent = "Nessun giocatore assegnato.";
           lista.appendChild(li);
-        });
+        } else {
+          giocatoriPerSquadra[nomeSquadra].forEach((giocatore) => {
+            const li = document.createElement("li");
+            li.textContent = `${giocatore.nome} (${giocatore.ruolo}, ${giocatore.mantra}) - Anni contratto: ${giocatore.anniContratto} - Primavera: ${giocatore.primavera}`;
+            lista.appendChild(li);
+          });
+        }
 
         squadraBox.appendChild(logoImg);
-        squadraBox.appendChild(nome);
+        squadraBox.appendChild(nomeH3);
         squadraBox.appendChild(fondazione);
         squadraBox.appendChild(allenatore);
         squadraBox.appendChild(lista);
         container.appendChild(squadraBox);
       });
+    })
+    .catch((error) => {
+      console.error("Errore nel caricamento o parsing del file CSV:", error);
     });
 });
