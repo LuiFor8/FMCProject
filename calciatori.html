@@ -27,29 +27,14 @@
 
   <main class="section">
     <h2>Elenco Calciatori</h2>
+    <input type="text" id="searchInput" placeholder="Cerca per nome, squadra, proprietario..." />
 
-    <!-- Barra di ricerca -->
-    <input type="text" id="searchInput" placeholder="Cerca per nome, ruolo, squadra...">
-
-    <!-- Filtri -->
     <div style="margin: 20px 0; text-align: center;">
-      <label for="filtroSquadra">Squadra:</label>
-      <select id="filtroSquadra">
-        <option value="">Tutte le squadre</option>
-      </select>
-
-      <label for="filtroRuolo">Ruolo:</label>
-      <select id="filtroRuolo">
-        <option value="">Tutti i ruoli</option>
-      </select>
-
-      <label for="filtroProprietario">Proprietario:</label>
-      <select id="filtroProprietario">
-        <option value="">Tutti i proprietari</option>
-      </select>
+      <select id="filtroSquadra"><option value="">Tutte le squadre (Serie A)</option></select>
+      <select id="filtroRuolo"><option value="">Tutti i ruoli</option></select>
+      <select id="filtroProprietario"><option value="">Tutti i proprietari</option></select>
     </div>
 
-    <!-- Tabella -->
     <table id="tabellaCalciatori">
       <thead>
         <tr>
@@ -70,9 +55,7 @@
     </table>
   </main>
 
-  <!-- Libreria per parsing CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <!-- Script personalizzato -->
   <script src="calciatori.js"></script>
 
   <footer>
