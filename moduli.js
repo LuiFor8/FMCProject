@@ -17,8 +17,8 @@ async function caricaModuli() {
     } else {
       const modulo = {
         modulo: valori[0],
-        valoreIniziale: valori[1],
-        valoreAttuale: valori[2]
+        valoreIniziale: parseFloat(valori[1]),
+        valoreAttuale: parseFloat(valori[2])
       };
       squadre[squadraCorrente].push(modulo);
     }
@@ -46,8 +46,15 @@ async function caricaModuli() {
     tabella.appendChild(thead);
 
     const tbody = document.createElement('tbody');
-    squadre[squadra].forEach(m => {
+
+    const moduli = squadre[squadra];
+    const maxValoreAttuale = Math.max(...moduli.map(m => m.valoreAttuale));
+
+    moduli.forEach(m => {
       const riga = document.createElement('tr');
+      if (m.valoreAttuale === maxValoreAttuale) {
+        riga.classList.add('highlight');
+      }
       riga.innerHTML = `
         <td>${m.modulo}</td>
         <td>${m.valoreIniziale}</td>
