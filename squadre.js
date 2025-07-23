@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const squadreInfo = {
     Squadra1: {
       nome: "Squadra 1",
-      logo: "loghi/logo1.png.png",
+      logo: "loghi/logo1.png",
       descrizione: "Descrizione breve della Squadra 1."
     },
     Squadra2: {
