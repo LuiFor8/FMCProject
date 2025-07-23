@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     download: true,
     header: true,
     complete: function (results) {
-      // Filtra righe non vuote
       let data = results.data.filter(row => Object.values(row).some(cell => cell && cell.trim() !== ""));
 
       const tbody = document.querySelector("#tabellaCalciatori tbody");
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const filtroPrimavera = document.getElementById("filtroPrimavera");
       const filtroProprietario = document.getElementById("filtroProprietario");
       const searchInput = document.getElementById("searchInput");
-      const resetButton = document.getElementById("resetFiltri"); // Bottone reset
+      const resetButton = document.getElementById("resetFiltri");
 
       let currentSort = { column: null, asc: true };
 
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         rows.forEach(row => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td style="text-align:center;">${row.Nome || ""}</td>
+            <td style="text-align:left;">${row.Nome || ""}</td>
             <td style="text-align:center;">${row.Ruolo || ""}</td>
             <td style="text-align:center;">${row.Mantra || ""}</td>
             <td style="text-align:center;">${row.Anno || ""}</td>
@@ -65,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <td style="text-align:center;">${row.ValoreIniziale || ""}</td>
             <td style="text-align:center;">${row.AnniContratto || ""}</td>
             <td style="text-align:center;">${row.ValoreContratto || ""}</td>
+            <td style="text-align:center;">${row.ValoreSvincolo || ""}</td>
             <td style="text-align:center;">${row.TrasferimentoFuturo || ""}</td>
           `;
           tbody.appendChild(tr);
@@ -125,22 +125,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const columns = [
         "Nome", "Ruolo", "Mantra", "Anno", "Primavera", "Squadra",
-        "Proprietario", "ValoreIniziale", "AnniContratto", "ValoreContratto", "TrasferimentoFuturo"
+        "Proprietario", "ValoreIniziale", "AnniContratto", "ValoreContratto", "ValoreSvincolo", "TrasferimentoFuturo"
       ];
 
       document.querySelectorAll("#tabellaCalciatori thead th").forEach((th, index) => {
         th.addEventListener("click", () => sortTable(columns[index]));
       });
 
-      // Eventi filtri e ricerca
-      [filtroSquadra, filtroRuolo, filtroRuoloMantra, filtroAnniContratto,
-       filtroTrasferimentoFuturo, filtroPrimavera, filtroProprietario].forEach(filtro =>
+      [
+        filtroSquadra, filtroRuolo, filtroRuoloMantra, filtroAnniContratto,
+        filtroTrasferimentoFuturo, filtroPrimavera, filtroProprietario
+      ].forEach(filtro =>
         filtro.addEventListener("change", filtraDati)
       );
 
       searchInput.addEventListener("input", filtraDati);
 
-      // Bottone reset filtri
       if (resetButton) {
         resetButton.addEventListener("click", () => {
           [
