@@ -211,6 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
         squadraBox.appendChild(allenatore);
 
         container.appendChild(squadraBox);
+
+        detailsContainer.classList.add("active");
+
       });
     })
     .catch((error) => {
