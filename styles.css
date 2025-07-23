@@ -349,6 +349,7 @@ button:focus {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   user-select: none;
+  cursor: pointer;
 }
 
 #finanze-tabella tbody tr:nth-child(even) {
@@ -358,4 +359,20 @@ button:focus {
 #finanze-tabella tbody tr:hover {
   background-color: #3b3b3b;
   transition: background-color 0.3s ease;
+}
+
+/* --- Intestazioni ordinabili (indica stato sorting) --- */
+#finanze-tabella th.sortable::after {
+  content: " ⇅";
+  font-size: 0.75rem;
+  color: #ffd27f;
+  margin-left: 0.3rem;
+}
+
+#finanze-tabella th.sortable.asc::after {
+  content: " ↑";
+}
+
+#finanze-tabella th.sortable.desc::after {
+  content: " ↓";
 }
