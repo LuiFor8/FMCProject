@@ -1,29 +1,58 @@
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("finanze.csv")
-    .then((response) => response.text())
-    .then((data) => {
-      const lines = data.trim().split("\n");
-      const headers = lines[0].split(",");
+async function caricaFinanze() {
+  const response = await fetch('finanze.csv');
+  const testo = await response.text();
 
-      const tbody = document.querySelector(".finanze-table tbody");
-      tbody.innerHTML = ""; // Pulisce contenuto preesistente
+  const righe = testo.trim().split('\n');
+  const intestazioni = righe[0].split(',');
+  const corpoTabella = document.querySelector('#finanze-tabella tbody');
+  const intestazioneTabella = document.querySelector('#finanze-tabella thead tr');
 
-      for (let i = 1; i < lines.length; i++) {
-        const rowValues = lines[i].split(",");
-        const tr = document.createElement("tr");
+  intestazioni.forEach((intestazione, index) => {
+    const th = document.createElement('th');
+    th.textContent = intestazione;
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => ordinaTabella(index));
+    intestazioneTabella.appendChild(th);
+  });
 
-        rowValues.forEach((val) => {
-          const td = document.createElement("td");
-          td.textContent = val.trim();
-          tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
-      }
-    })
-    .catch((err) => {
-      console.error("Errore nel caricamento del CSV:", err);
-      const tbody = document.querySelector(".finanze-table tbody");
-      tbody.innerHTML = "<tr><td colspan='9'>Impossibile caricare i dati.</td></tr>";
+  for (let i = 1; i < righe.length; i++) {
+    const valori = righe[i].split(',');
+    const riga = document.createElement('tr');
+    valori.forEach(val => {
+      const td = document.createElement('td');
+      td.textContent = val;
+      riga.appendChild(td);
     });
-});
+    corpoTabella.appendChild(riga);
+  }
+}
+
+function ordinaTabella(colIndex) {
+  const tabella = document.querySelector('#finanze-tabella');
+  const tbody = tabella.tBodies[0];
+  const righe = Array.from(tbody.querySelectorAll('tr'));
+  const ascending = !tabella.dataset.sortAsc || tabella.dataset.sortColumn != colIndex;
+
+  righe.sort((a, b) => {
+    const aVal = a.children[colIndex].textContent.trim();
+    const bVal = b.children[colIndex].textContent.trim();
+
+    const aNum = parseFloat(aVal);
+    const bNum = parseFloat(bVal);
+
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      return ascending ? aNum - bNum : bNum - aNum;
+    }
+
+    return ascending
+      ? aVal.localeCompare(bVal)
+      : bVal.localeCompare(aVal);
+  });
+
+  tbody.innerHTML = '';
+  righe.forEach(r => tbody.appendChild(r));
+  tabella.dataset.sortAsc = ascending;
+  tabella.dataset.sortColumn = colIndex;
+}
+
+caricaFinanze();
