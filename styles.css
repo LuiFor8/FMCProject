@@ -321,3 +321,41 @@ button:focus {
   background-color: #cc7e14;
   outline: none;
 }
+
+/* --- Tabella Finanze --- */
+#finanze-tabella {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(255, 159, 28, 0.3);
+}
+
+#finanze-tabella th,
+#finanze-tabella td {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  border: 1px solid #333;
+  color: #f3a840;
+}
+
+#finanze-tabella thead {
+  background-color: #ff9f1c;
+  color: #121212;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+#finanze-tabella tbody tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+#finanze-tabella tbody tr:hover {
+  background-color: #3b3b3b;
+  transition: background-color 0.3s ease;
+}
