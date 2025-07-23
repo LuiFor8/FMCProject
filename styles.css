@@ -90,10 +90,10 @@ table#finanze-tabella {
   color: #f3a840;
   margin-top: 1.5rem;
   user-select: none;
-  table-layout: fixed; /* celle larghe uguali, evita scroll orizzontale */
+  table-layout: fixed; /* celle larghe uguali di base, da sovrascrivere */
 }
 
-/* --- Intestazioni comuni --- */
+/* --- Intestazioni tabella finanze --- */
 table#finanze-tabella thead tr {
   background-color: #ff9f1c;
   color: #121212;
@@ -113,27 +113,47 @@ table#tabellaCalciatori thead tr {
   cursor: pointer;
 }
 
-/* --- Celle intestazione --- */
+/* --- Celle intestazione comuni --- */
 table#tabellaCalciatori th,
 table#finanze-tabella th {
   padding: 0.7rem 1rem;
   border: 1px solid #333;
   text-align: center;
   position: relative;
-  white-space: nowrap;
 }
 
-/* --- Specifico per intestazioni calciatori per non invadere altre colonne --- */
+/* --- Specifico per intestazioni calciatori: testo a capo e larghezza colonne --- */
 table#tabellaCalciatori th {
   font-size: 0.8rem;           /* font più piccolo */
-  min-width: 80px;             /* evita colonne troppo strette */
-  max-width: 130px;            /* limita larghezza massima */
+  white-space: normal;         /* consente invio a capo */
+  word-break: break-word;      /* rompe parole lunghe se serve */
   overflow: hidden;
-  text-overflow: ellipsis;    /* taglia testo troppo lungo */
+  text-overflow: ellipsis;
   box-sizing: border-box;
 }
 
-/* --- Celle dati --- */
+/* --- Prima colonna "Nome" (doppia larghezza) --- */
+table#tabellaCalciatori th:nth-child(1),
+table#tabellaCalciatori td:nth-child(1) {
+  width: 30%;            /* circa doppia rispetto alle altre */
+  min-width: 150px;
+  max-width: 300px;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+/* --- Colonne successive alla "Nome" con larghezza adattata all’intestazione --- */
+table#tabellaCalciatori th:not(:first-child),
+table#tabellaCalciatori td:not(:first-child) {
+  width: auto;           /* larghezza automatica */
+  min-width: 80px;
+  max-width: 130px;
+  white-space: nowrap;   /* evita invio a capo per i dati */
+  text-align: center;
+  padding: 0.6rem 0.8rem;
+}
+
+/* --- Celle dati comuni --- */
 table#tabellaCalciatori td,
 table#finanze-tabella td {
   padding: 0.6rem 0.8rem;
@@ -184,7 +204,7 @@ table#finanze-tabella th.sortable.desc::after {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Tabelle diventano scrollabili orizzontalmente senza rompere layout */
+  /* Tabelle scrollabili orizzontalmente senza rompere layout */
   table#tabellaCalciatori,
   table#finanze-tabella {
     display: block;
