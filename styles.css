@@ -24,6 +24,10 @@ a:focus {
   color: #ffd27f;
   outline: none;
 }
+.highlight {
+  background-color: #d9f2ff;
+  font-weight: bold;
+}
 
 /* --- Header --- */
 header {
