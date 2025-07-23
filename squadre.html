@@ -6,7 +6,7 @@
   <title>FMC Project - Squadre</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Stile base per la pagina squadre */
+    /* --- Stili base --- */
 
     .teams {
       display: flex;
@@ -24,12 +24,20 @@
       text-align: center;
       background: #f9f9f9;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
+      user-select: none;
     }
     .team:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .team.active {
+      border-color: #004aad;
+      box-shadow: 0 0 15px #004aad88;
+      transform: scale(1.08);
+      z-index: 1;
+      position: relative;
     }
 
     .team img {
@@ -58,6 +66,17 @@
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
+      opacity: 1;
+      max-height: 2000px;
+      overflow: hidden;
+      transition: opacity 0.4s ease, max-height 0.4s ease;
+    }
+    section.squadra-dedicata.hidden {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      margin-bottom: 0;
+      overflow: hidden;
     }
 
     section.squadra-dedicata h3 {
@@ -67,8 +86,9 @@
       font-size: 1.8em;
       color: #003374;
       margin-bottom: 10px;
+      cursor: pointer;
+      user-select: none;
     }
-
     section.squadra-dedicata h3 img {
       width: 50px;
       height: 50px;
@@ -81,6 +101,24 @@
       margin-bottom: 15px;
     }
 
+    section.squadra-dedicata .search-giocatori {
+      margin-bottom: 10px;
+      text-align: right;
+    }
+    section.squadra-dedicata .search-giocatori input {
+      padding: 6px 10px;
+      font-size: 0.9em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 180px;
+      transition: border-color 0.3s ease;
+    }
+    section.squadra-dedicata .search-giocatori input:focus {
+      outline: none;
+      border-color: #004aad;
+      box-shadow: 0 0 5px #004aad66;
+    }
+
     section.squadra-dedicata ul.giocatori {
       list-style: none;
       padding-left: 0;
@@ -90,18 +128,52 @@
       border-radius: 6px;
       background: white;
       box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      margin-top: 0;
     }
     section.squadra-dedicata ul.giocatori li {
       padding: 8px 12px;
       border-bottom: 1px solid #eee;
       font-weight: 600;
       color: #222;
+      transition: background-color 0.2s ease;
+    }
+    section.squadra-dedicata ul.giocatori li:hover {
+      background-color: #e6f0ff;
     }
     section.squadra-dedicata ul.giocatori li:last-child {
       border-bottom: none;
     }
 
-    /* Scroll liscio per gli ancoraggi */
+    /* Intestazione lista giocatori cliccabile per ordinare */
+    section.squadra-dedicata h4 {
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 5px;
+      color: #004aad;
+      font-weight: 700;
+      display: inline-block;
+      position: relative;
+      padding-right: 20px;
+    }
+    section.squadra-dedicata h4::after {
+      content: "▲";
+      font-size: 0.7em;
+      position: absolute;
+      right: 0;
+      top: 3px;
+      color: #aaa;
+      transition: transform 0.3s ease;
+    }
+    section.squadra-dedicata h4.sort-asc::after {
+      transform: rotate(0deg);
+      color: #004aad;
+    }
+    section.squadra-dedicata h4.sort-desc::after {
+      transform: rotate(180deg);
+      color: #004aad;
+    }
+
+    /* Scroll liscio */
     html {
       scroll-behavior: smooth;
     }
@@ -173,99 +245,112 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const csvUrl = "calciatori.csv"; // Percorso al CSV
+      const csvUrl = "calciatori.csv";
       const teamsContainer = document.getElementById("teams-container");
       const squadreDedicateContainer = document.getElementById("squadre-dedicate-container");
       const squadraSelect = document.getElementById("squadra-select");
 
-      // Mappa dati squadra -> oggetto {nome, logo, descrizione, giocatori[]}
       const squadreMap = new Map();
 
-      // Qui definisci dati fissi di ogni squadra (logo + descrizione) - personalizza come vuoi
-      // Assicurati che il nome corrisponda esattamente alla colonna Squadra nel CSV
       const squadreInfo = {
-        "Squadra 1": {
-          logo: "loghi/logo1.png",
-          descrizione: "La prima squadra con storia leggendaria."
-        },
-        "Squadra 2": {
-          logo: "loghi/logo2.png",
-          descrizione: "Una squadra giovane e ambiziosa."
-        },
-        "Squadra 3": {
-          logo: "loghi/logo3.png",
-          descrizione: "Squadra solida e con ottimi giocatori."
-        },
-        "Squadra 4": {
-          logo: "loghi/logo4.png",
-          descrizione: "Il team delle grandi strategie."
-        },
-        "Squadra 5": {
-          logo: "loghi/logo5.png",
-          descrizione: "Una squadra con un forte spirito di squadra."
-        },
-        "Squadra 6": {
-          logo: "loghi/logo6.png",
-          descrizione: "Squadra dal grande potenziale."
-        },
-        "Squadra 7": {
-          logo: "loghi/logo7.png",
-          descrizione: "Una squadra con una storia ricca."
-        },
-        "Squadra 8": {
-          logo: "loghi/logo8.png",
-          descrizione: "La squadra più tecnica del campionato."
-        },
-        "Squadra 9": {
-          logo: "loghi/logo9.png",
-          descrizione: "Una squadra con giocatori di talento."
-        },
-        "Squadra 10": {
-          logo: "loghi/logo10.png",
-          descrizione: "Squadra che punta all'eccellenza."
-        },
-        "Squadra 11": {
-          logo: "loghi/logo11.png",
-          descrizione: "Una squadra con grande passione."
-        },
-        "Squadra 12": {
-          logo: "loghi/logo12.png",
-          descrizione: "La squadra con una storia affascinante."
-        }
+        "Squadra 1": { logo: "loghi/logo1.png", descrizione: "La prima squadra con storia leggendaria." },
+        "Squadra 2": { logo: "loghi/logo2.png", descrizione: "Una squadra giovane e ambiziosa." },
+        "Squadra 3": { logo: "loghi/logo3.png", descrizione: "Squadra solida e con ottimi giocatori." },
+        "Squadra 4": { logo: "loghi/logo4.png", descrizione: "Il team delle grandi strategie." },
+        "Squadra 5": { logo: "loghi/logo5.png", descrizione: "Una squadra con un forte spirito di squadra." },
+        "Squadra 6": { logo: "loghi/logo6.png", descrizione: "Squadra dal grande potenziale." },
+        "Squadra 7": { logo: "loghi/logo7.png", descrizione: "Una squadra con una storia ricca." },
+        "Squadra 8": { logo: "loghi/logo8.png", descrizione: "La squadra più tecnica del campionato." },
+        "Squadra 9": { logo: "loghi/logo9.png", descrizione: "Una squadra con giocatori di talento." },
+        "Squadra 10": { logo: "loghi/logo10.png", descrizione: "Squadra che punta all'eccellenza." },
+        "Squadra 11": { logo: "loghi/logo11.png", descrizione: "Una squadra con grande passione." },
+        "Squadra 12": { logo: "loghi/logo12.png", descrizione: "La squadra con una storia affascinante." }
       };
 
-      // Funzione per creare box squadra nella sezione riepilogativa
+      // Ordine ordinamento giocatori per ogni squadra (1 = A→Z, -1 = Z→A)
+      const ordinamentoGiocatori = {};
+
       function creaBoxSquadra(nome) {
-        const info = squadreInfo[nome] || {logo:"", descrizione:""};
-        const div = document.createElement("div");
-        div.classList.add("team");
-        div.setAttribute("tabindex", "0");
-        div.innerHTML = `
+        const info = squadreInfo[nome] || { logo: "", descrizione: "" };
+        const box = document.createElement("div");
+        box.classList.add("team");
+        box.setAttribute("tabindex", "0");
+        box.dataset.squadra = nome.replace(/\s+/g, "");
+        const numGiocatori = (squadreMap.get(nome) || []).length;
+        box.innerHTML = `
           <a href="#${nome.replace(/\s+/g, "")}" tabindex="-1">
             <img src="${info.logo}" alt="Logo ${nome}" />
           </a>
-          <a href="#${nome.replace(/\s+/g, "")}" class="name-link" tabindex="-1">${nome}</a>
+          <a href="#${nome.replace(/\s+/g, "")}" class="name-link" tabindex="-1">${nome} (${numGiocatori})</a>
           <p>${info.descrizione}</p>
         `;
-        return div;
+        // Al click evidenzia
+        box.addEventListener("click", () => {
+          squadraSelect.value = nome;
+          squadraSelect.dispatchEvent(new Event("change"));
+          document.getElementById(nome.replace(/\s+/g, "")).focus();
+        });
+        return box;
       }
 
-      // Funzione per creare sezione dedicata squadra con lista giocatori
       function creaSezioneSquadra(nome, giocatori) {
-        const info = squadreInfo[nome] || {logo:"", descrizione:""};
+        const info = squadreInfo[nome] || { logo: "", descrizione: "" };
         const section = document.createElement("section");
         section.classList.add("squadra-dedicata");
         section.id = nome.replace(/\s+/g, "");
         section.setAttribute("tabindex", "0");
 
         section.innerHTML = `
-          <h3><img src="${info.logo}" alt="Logo ${nome}"> ${nome}</h3>
+          <h3><img src="${info.logo}" alt="Logo ${nome}"> ${nome} (${giocatori.length})</h3>
           <div class="details">${info.descrizione}</div>
-          <h4>Giocatori attuali</h4>
+          <div class="search-giocatori">
+            <input type="text" placeholder="Cerca giocatori..." aria-label="Cerca giocatori della squadra ${nome}" />
+          </div>
+          <h4 class="sortable-giocatori" tabindex="0">Giocatori attuali</h4>
           <ul class="giocatori">
             ${giocatori.length > 0 ? giocatori.map(g => `<li>${g.Nome}</li>`).join("") : "<li>Nessun giocatore trovato</li>"}
           </ul>
         `;
+
+        // Ricerca giocatori dentro la lista
+        const inputRicerca = section.querySelector(".search-giocatori input");
+        const listaGiocatori = section.querySelector("ul.giocatori");
+        inputRicerca.addEventListener("input", () => {
+          const val = inputRicerca.value.toLowerCase();
+          const items = listaGiocatori.querySelectorAll("li");
+          items.forEach(li => {
+            li.style.display = li.textContent.toLowerCase().includes(val) ? "" : "none";
+          });
+        });
+
+        // Ordinamento giocatori (A-Z / Z-A)
+        const h4Ordinamento = section.querySelector("h4.sortable-giocatori");
+        ordinamentoGiocatori[section.id] = 1; // default ascendente
+
+        h4Ordinamento.addEventListener("click", () => {
+          const currentOrd = ordinamentoGiocatori[section.id];
+          ordinamentoGiocatori[section.id] = currentOrd * -1; // toggle
+
+          // Cambia freccia visiva
+          h4Ordinamento.classList.toggle("sort-asc", ordinamentoGiocatori[section.id] === 1);
+          h4Ordinamento.classList.toggle("sort-desc", ordinamentoGiocatori[section.id] === -1);
+
+          // Ordina lista
+          const giocatoriArray = Array.from(listaGiocatori.querySelectorAll("li"));
+          giocatoriArray.sort((a, b) => {
+            if (a.textContent < b.textContent) return -1 * ordinamentoGiocatori[section.id];
+            if (a.textContent > b.textContent) return 1 * ordinamentoGiocatori[section.id];
+            return 0;
+          });
+
+          // Riapplica ordinamento
+          listaGiocatori.innerHTML = "";
+          giocatoriArray.forEach(li => listaGiocatori.appendChild(li));
+        });
+
+        // Imposta classe iniziale
+        h4Ordinamento.classList.add("sort-asc");
+
         return section;
       }
 
@@ -274,8 +359,8 @@
         header: true,
         complete: function(results) {
           const data = results.data.filter(row => Object.values(row).some(cell => cell.trim() !== ""));
-          
-          // Raccogli giocatori per squadra
+
+          // Popola map squadra->giocatori
           data.forEach(giocatore => {
             const nomeSquadra = giocatore.Squadra.trim();
             if (!squadreMap.has(nomeSquadra)) {
@@ -298,30 +383,43 @@
             teamsContainer.appendChild(box);
           });
 
-          // Crea sezioni dedicate (all'inizio tutte visibili)
+          // Crea sezioni dedicate (tutte visibili inizialmente)
           Object.keys(squadreInfo).forEach(nomeSquadra => {
             const giocatori = squadreMap.get(nomeSquadra) || [];
             const section = creaSezioneSquadra(nomeSquadra, giocatori);
             squadreDedicateContainer.appendChild(section);
           });
 
-          // Filtro per selezionare singola squadra (mostra solo sezione scelta)
+          // Gestione filtro dropdown squadra
           squadraSelect.addEventListener("change", () => {
             const scelta = squadraSelect.value;
-            // Mostra tutte se scelta vuota
+
+            // Aggiorna visualizzazione sezioni
             document.querySelectorAll(".squadra-dedicata").forEach(sec => {
               if (!scelta) {
-                sec.style.display = "block";
+                sec.classList.remove("hidden");
               } else {
-                sec.style.display = (sec.id === scelta.replace(/\s+/g, "")) ? "block" : "none";
+                if (sec.id === scelta.replace(/\s+/g, "")) {
+                  sec.classList.remove("hidden");
+                  sec.focus();
+                } else {
+                  sec.classList.add("hidden");
+                }
               }
             });
-            // Scrolla verso sezione selezionata se c'è
-            if(scelta) {
+
+            // Evidenzia box riepilogativo
+            document.querySelectorAll(".team").forEach(box => {
+              box.classList.toggle("active", box.dataset.squadra === scelta.replace(/\s+/g, ""));
+            });
+
+            // Scrolla verso sezione scelta
+            if (scelta) {
               const el = document.getElementById(scelta.replace(/\s+/g, ""));
-              if(el) el.scrollIntoView({behavior:"smooth"});
+              if (el) el.scrollIntoView({behavior: "smooth"});
             }
           });
+
         },
         error: function(err) {
           console.error("Errore caricamento CSV:", err);
