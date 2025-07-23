@@ -1,211 +1,279 @@
-/* Reset di base */
+/* RESET GENERALE */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
   background-color: #f9f9f9;
-  color: #333;
+  color: #03045e;
   line-height: 1.6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* HEADER & NAV */
-header {
-  background-color: #004aad;
-  color: white;
+header nav {
+  background-color: #0077b6;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-header h1 {
+header nav h1 {
+  color: #caf0f8;
   font-weight: 700;
   font-size: 1.8rem;
+  font-family: 'Poppins', sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-nav ul {
+header nav ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
-  margin-top: 0.6rem;
+  gap: 1.2rem;
   flex-wrap: wrap;
 }
 
-nav ul li a {
-  color: white;
+header nav ul li a {
+  color: #caf0f8;
   text-decoration: none;
   font-weight: 600;
-  padding: 0.3rem 0.6rem;
-  transition: background-color 0.3s ease;
+  padding: 0.4rem 0.8rem;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-nav ul li a:hover,
-nav ul li a:focus {
-  background-color: #003380;
+header nav ul li a:hover,
+header nav ul li a:focus {
+  background-color: #023e58;
+  outline: none;
 }
 
-/* MAIN SECTION */
-main.section {
-  flex: 1;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Contenitore cards squadre */
-#teams-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-/* Singola card squadra */
-.team-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-  width: 140px;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: default;
-  user-select: none;
-}
-
-.team-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
-}
-
-/* Logo piccolo cliccabile */
-.logo-squadra {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-}
-
-/* Nome squadra sotto logo */
-.team-name {
-  display: block;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #004aad;
-  user-select: text;
-}
-
-/* Contenitore dettagli squadra */
-#team-details-container {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.1);
+/* SEZIONI GENERALI */
+.section {
   padding: 2rem;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 1rem auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(3, 4, 94, 0.1);
 }
 
-/* Logo grande nei dettagli */
-.logo-squadra-large {
-  display: block;
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  margin: 0 auto 1rem;
-}
-
-/* Titolo dettagli */
-#team-details-container h2 {
-  text-align: center;
-  color: #003366;
+/* TITOLO PRINCIPALE */
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #0077b6;
   margin-bottom: 1rem;
-  font-weight: 700;
-  font-size: 2rem;
 }
 
-/* Paragrafi dettagli */
-#team-details-container p {
-  text-align: center;
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 0.6rem;
+/* LINKS GENERALI */
+a {
+  color: #0077b6;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-/* Lista giocatori */
-#team-details-container ul {
-  list-style-type: disc;
+a:hover, a:focus {
+  color: #023e58;
+  text-decoration: underline;
+}
+
+/* TABELLE STANDARD */
+table {
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 1rem;
-  padding-left: 1.5rem;
-  max-height: 350px;
-  overflow-y: auto;
-  color: #222;
-  font-size: 1rem;
 }
 
-/* Lista giocatori - singoli li */
-#team-details-container ul li {
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
+thead th {
+  background-color: #0077b6;
+  color: #caf0f8;
+  padding: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #023e58;
+  text-align: left;
+}
+
+tbody td {
+  border: 1px solid #ddd;
+  padding: 0.7rem;
+  color: #03045e;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e0fbfc;
+}
+
+/* BOTTONE GENERICO */
+button {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0077b6;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, button:focus {
+  background-color: #023e58;
+  outline: none;
 }
 
 /* FOOTER */
 footer {
-  background-color: #004aad;
-  color: white;
-  text-align: center;
-  padding: 1rem 0;
-  font-size: 0.9rem;
   margin-top: auto;
-  user-select: none;
+  padding: 1rem 2rem;
+  background-color: #0077b6;
+  color: #caf0f8;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ========================== */
+/* SEZIONE SQUADRE E DETTAGLI */
+/* ========================== */
+
+/* Container squadre */
+.teams-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Box singola squadra */
+.team-box {
+  border: 2px solid #005f73;
+  border-radius: 10px;
+  width: 180px;
+  padding: 1rem;
+  text-align: center;
+  background-color: #e0fbfc;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.team-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}
+
+/* Logo piccolo */
+.team-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Nome squadra */
+.team-box p {
+  font-weight: 600;
+  color: #0077b6;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Sezione dettagli squadra */
+.team-details {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  border-top: 3px solid #0077b6;
+  background-color: #caf0f8;
+  border-radius: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* Logo grande nella sezione dettagli */
+.team-logo-large {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Bottone chiudi dettagli */
+#close-details {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #0077b6;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#close-details:hover {
+  background-color: #023e58;
+}
+
+/* Testo sezione dettagli */
+.team-details p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #023e58;
+  margin: 0.3rem 0;
+}
+
+.team-details ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+  color: #03045e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  #teams-container {
-    justify-content: center;
-    gap: 1rem;
+  header nav ul {
+    flex-direction: column;
+    gap: 0.6rem;
   }
 
-  .team-card {
-    width: 120px;
+  .teams-container {
+    justify-content: center;
+  }
+
+  .team-box {
+    width: 140px;
     padding: 0.8rem;
   }
 
-  .logo-squadra {
-    width: 70px;
-    height: 70px;
+  .team-logo {
+    width: 80px;
+    height: 80px;
   }
 
-  #team-details-container {
-    max-width: 90%;
+  .team-logo-large {
+    width: 120px;
+    height: 120px;
+  }
+
+  .team-details {
     padding: 1rem;
-  }
-
-  #team-details-container h2 {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  nav ul {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .team-card {
-    width: 100%;
+    max-width: 95%;
   }
 }
