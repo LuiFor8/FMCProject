@@ -96,10 +96,13 @@ header ul li a:focus {
 }
 
 .team-box img.logo-squadra {
-  width: 80px;
-  height: 80px;
+  max-width: 100px;  /* larghezza massima */
+  max-height: 100px; /* altezza massima */
+  width: auto;       /* mantieni proporzioni */
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem auto;
   object-fit: contain;
-  margin-bottom: 0.75rem;
   border-radius: 8px;
   border: 2px solid transparent;
   transition: border-color 0.3s ease;
