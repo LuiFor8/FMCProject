@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FMC Project - Finanze</title>
-  <link rel="stylesheet" href="styles.css" />
-   <script defer src="finanze.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="finanze.js"></script>
 </head>
 <body>
 
@@ -19,17 +19,17 @@
         <li><a href="competizioni.html">Competizioni</a></li>
         <li><a href="calciatori.html">Calciatori</a></li>
         <li><a href="trattative.html">Trattative</a></li>
-        <li><a href="finanze.html" class="active">Finanze</a></li>
+        <li><a href="finanze.html">Finanze</a></li>
         <li><a href="albo.html">Albo d'oro</a></li>
         <li><a href="moduli.html">Moduli</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="section container">
+  <main class="section">
     <h2 class="section-title">Finanze delle Squadre</h2>
     <div class="table-wrapper">
-      <table class="finanze-table">
+      <table id="finanze-tabella" class="finanze-table">
         <thead>
           <tr>
             <th>Squadra</th>
@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Contenuto caricato da JS -->
+          <!-- Dati caricati da finanze.js -->
         </tbody>
       </table>
     </div>
@@ -54,6 +54,5 @@
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
   </footer>
 
-  <script src="finanze.js"></script>
 </body>
 </html>
