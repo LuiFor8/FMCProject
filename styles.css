@@ -94,13 +94,22 @@ table#finanze-tabella {
 }
 
 /* --- Intestazioni comuni --- */
-table#tabellaCalciatori thead tr,
 table#finanze-tabella thead tr {
   background-color: #ff9f1c;
   color: #121212;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+/* --- Intestazioni tabella calciatori più compatte e leggibili --- */
+table#tabellaCalciatori thead tr {
+  background-color: #ff9f1c;
+  color: #121212;
+  font-weight: 600;
+  text-transform: none;       /* meno invasivo */
+  letter-spacing: 0.02em;     /* più sottile */
   cursor: pointer;
 }
 
@@ -112,6 +121,16 @@ table#finanze-tabella th {
   text-align: center;
   position: relative;
   white-space: nowrap;
+}
+
+/* --- Specifico per intestazioni calciatori per non invadere altre colonne --- */
+table#tabellaCalciatori th {
+  font-size: 0.8rem;           /* font più piccolo */
+  min-width: 80px;             /* evita colonne troppo strette */
+  max-width: 130px;            /* limita larghezza massima */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* taglia testo troppo lungo */
+  box-sizing: border-box;
 }
 
 /* --- Celle dati --- */
@@ -165,7 +184,7 @@ table#finanze-tabella th.sortable.desc::after {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Tabelle diventano scrollabili orizzontalmente senza romper layout */
+  /* Tabelle diventano scrollabili orizzontalmente senza rompere layout */
   table#tabellaCalciatori,
   table#finanze-tabella {
     display: block;
