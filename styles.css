@@ -80,6 +80,7 @@ header ul li a:focus {
   gap: 1.5rem;
 }
 
+/* --- Team box --- */
 .team-box {
   background: white;
   border-radius: 10px;
@@ -88,34 +89,47 @@ header ul li a:focus {
   text-align: center;
   cursor: pointer;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
+  min-height: 230px; /* spazio per logo e testo */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+
 .team-box:hover,
 .team-box:focus-within {
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transform: translateY(-3px);
 }
 
+/* --- Logo piccolo squadre --- */
 .team-box img.logo-squadra {
-  width: 80px !important;
-  height: 80px !important;
-  max-width: 80px !important;
-  max-height: 80px !important;
+  width: 100px !important;
+  height: 100px !important;
+  max-width: 100px !important;
+  max-height: 100px !important;
   object-fit: contain !important;
   display: block !important;
   margin: 0 auto 1rem auto !important;
-  border-radius: 8px !important;
+  border-radius: 12px !important;
   border: 2px solid transparent !important;
   transition: border-color 0.3s ease !important;
 }
+
 .team-box:hover img.logo-squadra {
-  border-color: #023e8a;
+  border-color: #012a60;
 }
 
 .team-box h3 {
   margin: 0.5rem 0 0.3rem;
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: #023e8a;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #012a60;
+}
+
+.team-box p {
+  margin: 0.15rem 0;
+  color: #555;
+  font-weight: 500;
 }
 
 /* --- Team details container --- */
@@ -130,10 +144,25 @@ header ul li a:focus {
   margin-right: auto;
   display: none; /* hidden by default */
   position: relative;
+  max-height: 600px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #023e8a #f0f0f0;
 }
 
 .team-details.active {
   display: block;
+}
+
+/* --- Logo grande nei dettagli squadra --- */
+.team-details img.team-logo-large {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 15px;
+  border: 3px solid #023e8a;
 }
 
 #team-details-container h2 {
@@ -155,7 +184,7 @@ header ul li a:focus {
   transition: background-color 0.3s ease;
 }
 #close-details:hover {
-  background: #b02633;
+  background: #a3222d;
 }
 
 /* --- Tabelle dettagli giocatori --- */
@@ -173,13 +202,16 @@ header ul li a:focus {
 }
 
 .team-details th, .team-details td {
-  padding: 0.6rem 0.9rem;
+  padding: 0.5rem 0.7rem;
   border: 1px solid #ddd;
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
+  max-width: 130px;
+  word-wrap: break-word;
 }
 
 .team-details tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f3f6fb;
 }
 
 .team-details tbody tr:hover {
@@ -207,8 +239,15 @@ header ul li a:focus {
   }
 
   .team-box img.logo-squadra {
-    width: 60px;
-    height: 60px;
+    width: 80px !important;
+    height: 80px !important;
+    max-width: 80px !important;
+    max-height: 80px !important;
+  }
+
+  .team-details img.team-logo-large {
+    width: 120px;
+    height: 120px;
   }
 
   .team-details table,
@@ -307,8 +346,6 @@ form button {
 
 /* --- Scrollbar per contenuti lunghi --- */
 .team-details {
-  max-height: 600px;
-  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #023e8a #f0f0f0;
 }
