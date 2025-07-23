@@ -1,229 +1,211 @@
-/* ----- RESET GENERALE ----- */
+/* Reset di base */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f8;
+  background-color: #f9f9f9;
   color: #333;
   line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ----- HEADER E NAV ----- */
+/* HEADER & NAV */
 header {
-  background-color: #1e2a38;
-  padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #004aad;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 header h1 {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 nav ul {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
   list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
 }
 
-nav a {
-  color: #fff;
+nav ul li a {
+  color: white;
   text-decoration: none;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
   transition: background-color 0.3s ease;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
-nav a:hover {
-  background-color: #34495e;
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: #003380;
 }
 
-/* ----- SEZIONI ----- */
-.section {
-  padding: 2rem;
+/* MAIN SECTION */
+main.section {
+  flex: 1;
   max-width: 1200px;
-  margin: auto;
-}
-
-/* ----- HERO (HOME) ----- */
-.hero {
-  background: linear-gradient(to right, #2980b9, #6dd5fa);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-  border-radius: 10px;
   margin: 2rem auto;
-}
-
-/* ----- TEAM / SQUADRE ----- */
-.teams {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
-.team {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  transition: transform 0.2s ease;
-  position: relative;
+/* Contenitore cards squadre */
+#teams-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
-.team:hover {
-  transform: translateY(-5px);
-}
-
-.team img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
-}
-
-.team h3 {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
-  color: #2c3e50;
-}
-
-.team p {
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.squadra-info {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 1rem;
-}
-
-/* ----- CALCIATORI TABLE ----- */
-.table-container {
-  overflow-x: auto;
-  margin-top: 2rem;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
+/* Singola card squadra */
+.team-card {
   background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-th, td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-th {
-  background-color: #34495e;
-  color: white;
-  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  width: 140px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
   user-select: none;
 }
 
-tr:hover {
-  background-color: #f2f2f2;
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
 }
 
-/* ----- FILTRI (DROPDOWN) ----- */
-.filtri {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.filtri label {
-  font-weight: bold;
-  margin-right: 0.5rem;
-}
-
-.filtri select {
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-size: 0.9rem;
-}
-
-/* ----- ALBO D'ORO ----- */
-ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-top: 1rem;
-}
-
-ul li {
+/* Logo piccolo cliccabile */
+.logo-squadra {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
-/* ----- FORM (Contatti, ecc.) ----- */
-form {
-  max-width: 500px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Nome squadra sotto logo */
+.team-name {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #004aad;
+  user-select: text;
 }
 
-input, textarea, button {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Contenitore dettagli squadra */
+#team-details-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.1);
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Logo grande nei dettagli */
+.logo-squadra-large {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+}
+
+/* Titolo dettagli */
+#team-details-container h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+/* Paragrafi dettagli */
+#team-details-container p {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.6rem;
+}
+
+/* Lista giocatori */
+#team-details-container ul {
+  list-style-type: disc;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  max-height: 350px;
+  overflow-y: auto;
+  color: #222;
   font-size: 1rem;
 }
 
-button {
-  background-color: #2980b9;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+/* Lista giocatori - singoli li */
+#team-details-container ul li {
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
 }
 
-button:hover {
-  background-color: #216a94;
-}
-
-/* ----- FOOTER ----- */
+/* FOOTER */
 footer {
-  background-color: #1e2a38;
+  background-color: #004aad;
   color: white;
   text-align: center;
   padding: 1rem 0;
-  margin-top: 3rem;
   font-size: 0.9rem;
+  margin-top: auto;
+  user-select: none;
 }
 
-/* ----- RESPONSIVE ----- */
+/* Responsive */
 @media (max-width: 768px) {
-  .filtri {
+  #teams-container {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .team-card {
+    width: 120px;
+    padding: 0.8rem;
+  }
+
+  .logo-squadra {
+    width: 70px;
+    height: 70px;
+  }
+
+  #team-details-container {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  #team-details-container h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero {
-    padding: 2rem 1rem;
+  .team-card {
+    width: 100%;
   }
 }
