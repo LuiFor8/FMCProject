@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const filtroPrimavera = document.getElementById("filtroPrimavera");
       const filtroProprietario = document.getElementById("filtroProprietario");
       const searchInput = document.getElementById("searchInput");
+      const resetButton = document.getElementById("resetFiltri"); // Bottone reset
 
       let currentSort = { column: null, asc: true };
 
-      // Set per valori unici di ogni filtro
       const squadre = new Set(), ruoli = new Set(), ruoliMantra = new Set(),
         anniContratto = new Set(), trasferimentiFuturi = new Set(),
         primavere = new Set(), proprietari = new Set();
@@ -33,9 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (row.Proprietario) proprietari.add(row.Proprietario);
       });
 
-      // Funzione helper per popolare select ordinando i valori
       function popolaFiltro(selectElem, valuesSet) {
-        const values = Array.from(valuesSet).filter(v => v !== undefined && v !== null && v !== "").sort((a, b) => a.localeCompare(b));
+        const values = Array.from(valuesSet).filter(v => v).sort((a, b) => a.localeCompare(b));
         values.forEach(v => {
           const option = document.createElement("option");
           option.value = option.textContent = v;
@@ -51,29 +50,27 @@ document.addEventListener("DOMContentLoaded", function () {
       popolaFiltro(filtroPrimavera, primavere);
       popolaFiltro(filtroProprietario, proprietari);
 
-      // Render tabella dati
       function renderTable(rows) {
         tbody.innerHTML = "";
         rows.forEach(row => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${row.Nome || ""}</td>
-            <td>${row.Ruolo || ""}</td>
-            <td>${row.Mantra || ""}</td>
-            <td>${row.Anno || ""}</td>
-            <td>${row.Primavera || ""}</td>
-            <td>${row.Squadra || ""}</td>
-            <td>${row.Proprietario || ""}</td>
-            <td>${row.ValoreIniziale || ""}</td>
-            <td>${row.AnniContratto || ""}</td>
-            <td>${row.ValoreContratto || ""}</td>
-            <td>${row.TrasferimentoFuturo || ""}</td>
+            <td style="text-align:center;">${row.Nome || ""}</td>
+            <td style="text-align:center;">${row.Ruolo || ""}</td>
+            <td style="text-align:center;">${row.Mantra || ""}</td>
+            <td style="text-align:center;">${row.Anno || ""}</td>
+            <td style="text-align:center;">${row.Primavera || ""}</td>
+            <td style="text-align:center;">${row.Squadra || ""}</td>
+            <td style="text-align:center;">${row.Proprietario || ""}</td>
+            <td style="text-align:center;">${row.ValoreIniziale || ""}</td>
+            <td style="text-align:center;">${row.AnniContratto || ""}</td>
+            <td style="text-align:center;">${row.ValoreContratto || ""}</td>
+            <td style="text-align:center;">${row.TrasferimentoFuturo || ""}</td>
           `;
           tbody.appendChild(tr);
         });
       }
 
-      // Funzione filtro multiplo con ricerca testuale
       function filtraDati() {
         const squadra = filtroSquadra.value.trim();
         const ruolo = filtroRuolo.value.trim();
@@ -103,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
         renderTable(filtrati);
       }
 
-      // Ordinamento tabella (cres./desc.)
       function sortTable(col) {
         const isAsc = currentSort.column === col ? !currentSort.asc : true;
         currentSort = { column: col, asc: isAsc };
@@ -132,22 +128,31 @@ document.addEventListener("DOMContentLoaded", function () {
         "Proprietario", "ValoreIniziale", "AnniContratto", "ValoreContratto", "TrasferimentoFuturo"
       ];
 
-      // Attiva ordinamento click intestazioni
       document.querySelectorAll("#tabellaCalciatori thead th").forEach((th, index) => {
         th.addEventListener("click", () => sortTable(columns[index]));
       });
 
-      // Event listener filtri e ricerca
-      filtroSquadra.addEventListener("change", filtraDati);
-      filtroRuolo.addEventListener("change", filtraDati);
-      filtroRuoloMantra.addEventListener("change", filtraDati);
-      filtroAnniContratto.addEventListener("change", filtraDati);
-      filtroTrasferimentoFuturo.addEventListener("change", filtraDati);
-      filtroPrimavera.addEventListener("change", filtraDati);
-      filtroProprietario.addEventListener("change", filtraDati);
+      // Eventi filtri e ricerca
+      [filtroSquadra, filtroRuolo, filtroRuoloMantra, filtroAnniContratto,
+       filtroTrasferimentoFuturo, filtroPrimavera, filtroProprietario].forEach(filtro =>
+        filtro.addEventListener("change", filtraDati)
+      );
+
       searchInput.addEventListener("input", filtraDati);
 
-      // Render iniziale
+      // Bottone reset filtri
+      if (resetButton) {
+        resetButton.addEventListener("click", () => {
+          [
+            filtroSquadra, filtroRuolo, filtroRuoloMantra, filtroAnniContratto,
+            filtroTrasferimentoFuturo, filtroPrimavera, filtroProprietario
+          ].forEach(filtro => filtro.value = "");
+
+          searchInput.value = "";
+          renderTable(data);
+        });
+      }
+
       renderTable(data);
     },
     error: function (err) {
