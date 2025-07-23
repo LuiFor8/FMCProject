@@ -81,7 +81,7 @@ header ul li a:focus {
 }
 
 /* --- Box singola squadra --- */
-.team-box {
+.squadra-box {
   background: #1e1e1e;
   border: 1px solid #333;
   border-radius: 8px;
@@ -95,34 +95,34 @@ header ul li a:focus {
   transition: background-color 0.25s ease;
 }
 
-.team-box:hover,
-.team-box:focus-within {
+.squadra-box:hover,
+.squadra-box:focus-within {
   background-color: #2a2a2a;
   outline: none;
 }
 
 /* --- Logo squadra piccolo --- */
-.team-box img.logo-squadra {
-  width: 10px;
-  height: 10px;
+.squadra-box img.logo-squadra {
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   border-radius: 6px;
   border: 2px solid transparent;
   transition: border-color 0.3s ease;
 }
-.team-box:hover img.logo-squadra {
+.squadra-box:hover img.logo-squadra {
   border-color: #ff9f1c;
 }
 
 /* --- Nome e info squadra --- */
-.team-box h3 {
+.squadra-box h3 {
   margin: 0;
   font-weight: 700;
   font-size: 1.2rem;
   color: #f07f00;
 }
 
-.team-box p {
+.squadra-box p {
   margin: 0;
   font-weight: 500;
   font-size: 0.9rem;
@@ -236,7 +236,7 @@ header ul li a:focus {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
-  .team-box img.logo-squadra {
+  .squadra-box img.logo-squadra {
     width: 60px;
     height: 60px;
   }
