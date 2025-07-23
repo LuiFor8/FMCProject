@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FMC Project - Squadra2</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <h1>FMC Project</h1>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../regolamento.html">Regolamento</a></li>
+        <li><a href="../squadre.html" class="active">Squadre</a></li>
+        <li><a href="../competizioni.html">Competizioni</a></li>
+        <li><a href="../calciatori.html">Calciatori</a></li>
+        <li><a href="../trattative.html">Trattative</a></li>
+        <li><a href="../finanze.html">Finanze</a></li>
+        <li><a href="../albo.html">Albo d'oro</a></li>
+        <li><a href="../contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section container">
+
+    <section class="team-details">
+      <img src="../loghi/logo2.png" alt="Logo Squadra2" class="team-logo-large" />
+      <h2>Squadra2</h2>
+      <p><strong>Anno di fondazione:</strong> 2010</p>
+      <p><strong>Allenatore:</strong> Mister A</p>
+      <p class="team-description">Questa è una descrizione dettagliata della Squadra2. Puoi aggiungere storia, tattiche, curiosità e altro.</p>
+    </section>
+
+    <section class="team-players">
+      <h3>Giocatori attuali</h3>
+      <ul id="players-list">
+        <!-- I giocatori saranno caricati qui da JS -->
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
+  </footer>
+
+  <script>
+    // Caricamento dinamico dei giocatori da calciatori.csv in base alla proprietà "Proprietario"
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("../calciatori.csv")
+        .then(response => response.text())
+        .then(data => {
+          const lines = data.trim().split("\n");
+          const headers = lines[0].split(",");
+
+          const proprietarioIndex = headers.indexOf("Proprietario");
+          const nomeIndex = headers.indexOf("Nome");
+          const ruoloIndex = headers.indexOf("Ruolo");
+          const mantraIndex = headers.indexOf("Mantra");
+          const annoIndex = headers.indexOf("Anno");
+          const primaveraIndex = headers.indexOf("Primavera");
+          const squadraRealeIndex = headers.indexOf("Squadra");
+          const anniContrattoIndex = headers.indexOf("AnniContratto");
+          const trasferimentoFuturoIndex = headers.indexOf("TrasferimentoFuturo");
+
+          const playersList = document.getElementById("players-list");
+          const squadraID = "Squadra1"; // Cambia qui per ogni squadra (es: Squadra2, Squadra3...)
+
+          for(let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(",");
+
+            if(values[proprietarioIndex].trim() === squadraID) {
+              const li = document.createElement("li");
+              li.textContent = `${values[nomeIndex]} - ${values[ruoloIndex]} - Mantra: ${values[mantraIndex]} - Anno: ${values[annoIndex]} - Primavera: ${values[primaveraIndex]} - Anni Contratto: ${values[anniContrattoIndex]} - Trasferimento Futuro: ${values[trasferimentoFuturoIndex]}`;
+              playersList.appendChild(li);
+            }
+          }
+        })
+        .catch(err => {
+          console.error("Errore caricamento calciatori:", err);
+          const playersList = document.getElementById("players-list");
+          playersList.textContent = "Impossibile caricare la lista dei giocatori.";
+        });
+    });
+  </script>
+
+</body>
+</html>
