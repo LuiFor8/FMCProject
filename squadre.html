@@ -6,7 +6,8 @@
   <title>FMC Project - Squadre</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Styles base per le squadre */
+    /* Stile base per la pagina squadre */
+
     .teams {
       display: flex;
       flex-wrap: wrap;
@@ -14,76 +15,110 @@
       justify-content: center;
       margin-bottom: 50px;
     }
+
     .team {
-      background: #fff;
+      width: 200px;
+      border: 1px solid #ddd;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
       padding: 15px;
-      width: 180px;
       text-align: center;
+      background: #f9f9f9;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s ease;
       cursor: pointer;
     }
     .team:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgb(0 0 0 / 0.3);
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
+
     .team img {
       width: 80px;
       height: 80px;
       object-fit: contain;
       margin-bottom: 10px;
-      cursor: pointer;
     }
+
     .team a.name-link {
       display: block;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #0b2239;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #004aad;
       text-decoration: none;
-      margin-bottom: 8px;
-      cursor: pointer;
+      margin-bottom: 10px;
     }
     .team a.name-link:hover {
       text-decoration: underline;
     }
-    .team p.desc {
-      font-size: 0.9rem;
-      color: #555;
-      min-height: 50px;
+
+    section.squadra-dedicata {
+      border-top: 3px solid #004aad;
+      margin-bottom: 60px;
+      padding-top: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Sezioni dedicate */
-    section.squadra-dedicata {
-      border-top: 2px solid #0b2239;
-      margin-top: 50px;
-      padding-top: 30px;
-    }
     section.squadra-dedicata h3 {
       display: flex;
       align-items: center;
       gap: 15px;
+      font-size: 1.8em;
+      color: #003374;
       margin-bottom: 10px;
-      color: #0b2239;
     }
+
     section.squadra-dedicata h3 img {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       object-fit: contain;
     }
+
     section.squadra-dedicata .details {
+      font-style: italic;
+      color: #555;
       margin-bottom: 15px;
-      font-size: 1rem;
-      color: #333;
     }
+
     section.squadra-dedicata ul.giocatori {
       list-style: none;
       padding-left: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
     }
     section.squadra-dedicata ul.giocatori li {
-      padding: 5px 0;
-      border-bottom: 1px solid #ddd;
-      font-size: 0.95rem;
+      padding: 8px 12px;
+      border-bottom: 1px solid #eee;
+      font-weight: 600;
+      color: #222;
+    }
+    section.squadra-dedicata ul.giocatori li:last-child {
+      border-bottom: none;
+    }
+
+    /* Scroll liscio per gli ancoraggi */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Contenitore filtro squadra */
+    #squadra-select-container {
+      max-width: 700px;
+      margin: 20px auto 40px;
+      text-align: center;
+    }
+
+    #squadra-select {
+      font-size: 1.1em;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      min-width: 250px;
     }
   </style>
 </head>
@@ -94,261 +129,206 @@
       <h1>FMC Project</h1>
       <ul>
          <li><a href="index.html">Home</a></li>
-        <li><a href="regolamento.html">Regolamento</a></li>
-        <li><a href="squadre.html">Squadre</a></li>
-        <li><a href="competizioni.html">Competizioni</a></li>
-        <li><a href="calciatori.html">Calciatori</a></li>
-        <li><a href="trattative.html">Trattative</a></li>
-        <li><a href="finanze.html">Finanze</a></li>
-        <li><a href="albo.html">Albo d'oro</a></li>
-        <li><a href="contatti.html">Contatti</a></li>
+         <li><a href="regolamento.html">Regolamento</a></li>
+         <li><a href="squadre.html">Squadre</a></li>
+         <li><a href="competizioni.html">Competizioni</a></li>
+         <li><a href="calciatori.html">Calciatori</a></li>
+         <li><a href="trattative.html">Trattative</a></li>
+         <li><a href="finanze.html">Finanze</a></li>
+         <li><a href="albo.html">Albo d'oro</a></li>
+         <li><a href="contatti.html">Contatti</a></li>
       </ul>
     </nav>
   </header>
 
   <main class="section">
+
     <h2>Squadre</h2>
 
-    <div class="teams">
-      <!-- Genera i box da 1 a 12 -->
-      <div class="team" tabindex="0">
-        <a href="#squadra1" tabindex="-1"><img src="loghi/logo1.png" alt="Logo Squadra 1" /></a>
-        <a href="#squadra1" class="name-link" tabindex="-1">Squadra 1</a>
-        <p class="desc">Descrizione breve della Squadra 1.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra2" tabindex="-1"><img src="loghi/logo2.png" alt="Logo Squadra 2" /></a>
-        <a href="#squadra2" class="name-link" tabindex="-1">Squadra 2</a>
-        <p class="desc">Descrizione breve della Squadra 2.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra3" tabindex="-1"><img src="loghi/logo3.png" alt="Logo Squadra 3" /></a>
-        <a href="#squadra3" class="name-link" tabindex="-1">Squadra 3</a>
-        <p class="desc">Descrizione breve della Squadra 3.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra4" tabindex="-1"><img src="loghi/logo4.png" alt="Logo Squadra 4" /></a>
-        <a href="#squadra4" class="name-link" tabindex="-1">Squadra 4</a>
-        <p class="desc">Descrizione breve della Squadra 4.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra5" tabindex="-1"><img src="loghi/logo5.png" alt="Logo Squadra 5" /></a>
-        <a href="#squadra5" class="name-link" tabindex="-1">Squadra 5</a>
-        <p class="desc">Descrizione breve della Squadra 5.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra6" tabindex="-1"><img src="loghi/logo6.png" alt="Logo Squadra 6" /></a>
-        <a href="#squadra6" class="name-link" tabindex="-1">Squadra 6</a>
-        <p class="desc">Descrizione breve della Squadra 6.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra7" tabindex="-1"><img src="loghi/logo7.png" alt="Logo Squadra 7" /></a>
-        <a href="#squadra7" class="name-link" tabindex="-1">Squadra 7</a>
-        <p class="desc">Descrizione breve della Squadra 7.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra8" tabindex="-1"><img src="loghi/logo8.png" alt="Logo Squadra 8" /></a>
-        <a href="#squadra8" class="name-link" tabindex="-1">Squadra 8</a>
-        <p class="desc">Descrizione breve della Squadra 8.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra9" tabindex="-1"><img src="loghi/logo9.png" alt="Logo Squadra 9" /></a>
-        <a href="#squadra9" class="name-link" tabindex="-1">Squadra 9</a>
-        <p class="desc">Descrizione breve della Squadra 9.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra10" tabindex="-1"><img src="loghi/logo10.png" alt="Logo Squadra 10" /></a>
-        <a href="#squadra10" class="name-link" tabindex="-1">Squadra 10</a>
-        <p class="desc">Descrizione breve della Squadra 10.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra11" tabindex="-1"><img src="loghi/logo11.png" alt="Logo Squadra 11" /></a>
-        <a href="#squadra11" class="name-link" tabindex="-1">Squadra 11</a>
-        <p class="desc">Descrizione breve della Squadra 11.</p>
-      </div>
-
-      <div class="team" tabindex="0">
-        <a href="#squadra12" tabindex="-1"><img src="loghi/logo12.png" alt="Logo Squadra 12" /></a>
-        <a href="#squadra12" class="name-link" tabindex="-1">Squadra 12</a>
-        <p class="desc">Descrizione breve della Squadra 12.</p>
-      </div>
+    <!-- Filtro per squadra -->
+    <div id="squadra-select-container">
+      <label for="squadra-select">Visualizza squadra:</label>
+      <select id="squadra-select">
+        <option value="">Tutte le squadre</option>
+        <!-- Opzioni popolate dinamicamente -->
+      </select>
     </div>
 
-    <!-- Sezioni dedicate -->
-    <section id="squadra1" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo1.png" alt="Logo Squadra 1" /> Squadra 1</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 1: fondazione, allenatore, palmarès, ecc.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Mario Rossi</li>
-        <li>Gianni Verdi</li>
-        <li>Luca Bianchi</li>
-      </ul>
-    </section>
+    <!-- Box riepilogativi squadre -->
+    <div class="teams" id="teams-container">
+      <!-- Box generati dinamicamente -->
+    </div>
 
-    <section id="squadra2" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo2.png" alt="Logo Squadra 2" /> Squadra 2</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 2: fondazione, allenatore, palmarès, ecc.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Alessandro Neri</li>
-        <li>Paolo Gialli</li>
-        <li>Francesco Bianchi</li>
-      </ul>
-    </section>
-
-    <!-- Aggiungi qui sezioni dedicate per Squadra 3 - Squadra 12 seguendo lo stesso schema -->
-
-    <section id="squadra3" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo3.png" alt="Logo Squadra 3" /> Squadra 3</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 3: fondazione, allenatore, palmarès, ecc.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 1</li>
-        <li>Giocatore 2</li>
-        <li>Giocatore 3</li>
-      </ul>
-    </section>
-
-    <!-- ... continua fino a squadra12 -->
-    <section id="squadra4" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo4.png" alt="Logo Squadra 4" /> Squadra 4</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 4.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 4</li>
-        <li>Giocatore 5</li>
-        <li>Giocatore 6</li>
-      </ul>
-    </section>
-
-    <section id="squadra5" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo5.png" alt="Logo Squadra 5" /> Squadra 5</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 5.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 7</li>
-        <li>Giocatore 8</li>
-        <li>Giocatore 9</li>
-      </ul>
-    </section>
-
-    <section id="squadra6" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo6.png" alt="Logo Squadra 6" /> Squadra 6</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 6.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 10</li>
-        <li>Giocatore 11</li>
-        <li>Giocatore 12</li>
-      </ul>
-    </section>
-
-    <section id="squadra7" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo7.png" alt="Logo Squadra 7" /> Squadra 7</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 7.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 13</li>
-        <li>Giocatore 14</li>
-        <li>Giocatore 15</li>
-      </ul>
-    </section>
-
-    <section id="squadra8" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo8.png" alt="Logo Squadra 8" /> Squadra 8</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 8.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 16</li>
-        <li>Giocatore 17</li>
-        <li>Giocatore 18</li>
-      </ul>
-    </section>
-
-    <section id="squadra9" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo9.png" alt="Logo Squadra 9" /> Squadra 9</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 9.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 19</li>
-        <li>Giocatore 20</li>
-        <li>Giocatore 21</li>
-      </ul>
-    </section>
-
-    <section id="squadra10" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo10.png" alt="Logo Squadra 10" /> Squadra 10</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 10.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 22</li>
-        <li>Giocatore 23</li>
-        <li>Giocatore 24</li>
-      </ul>
-    </section>
-
-    <section id="squadra11" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo11.png" alt="Logo Squadra 11" /> Squadra 11</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 11.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 25</li>
-        <li>Giocatore 26</li>
-        <li>Giocatore 27</li>
-      </ul>
-    </section>
-
-    <section id="squadra12" class="squadra-dedicata" tabindex="0">
-      <h3><img src="loghi/logo12.png" alt="Logo Squadra 12" /> Squadra 12</h3>
-      <div class="details">
-        <p>Dettagli estesi sulla Squadra 12.</p>
-      </div>
-      <h4>Giocatori attuali</h4>
-      <ul class="giocatori">
-        <li>Giocatore 28</li>
-        <li>Giocatore 29</li>
-        <li>Giocatore 30</li>
-      </ul>
-    </section>
+    <!-- Sezioni dedicate squadre -->
+    <div id="squadre-dedicate-container">
+      <!-- Sezioni generate dinamicamente -->
+    </div>
 
   </main>
 
   <footer>
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const csvUrl = "calciatori.csv"; // Percorso al CSV
+      const teamsContainer = document.getElementById("teams-container");
+      const squadreDedicateContainer = document.getElementById("squadre-dedicate-container");
+      const squadraSelect = document.getElementById("squadra-select");
+
+      // Mappa dati squadra -> oggetto {nome, logo, descrizione, giocatori[]}
+      const squadreMap = new Map();
+
+      // Qui definisci dati fissi di ogni squadra (logo + descrizione) - personalizza come vuoi
+      // Assicurati che il nome corrisponda esattamente alla colonna Squadra nel CSV
+      const squadreInfo = {
+        "Squadra 1": {
+          logo: "loghi/logo1.png",
+          descrizione: "La prima squadra con storia leggendaria."
+        },
+        "Squadra 2": {
+          logo: "loghi/logo2.png",
+          descrizione: "Una squadra giovane e ambiziosa."
+        },
+        "Squadra 3": {
+          logo: "loghi/logo3.png",
+          descrizione: "Squadra solida e con ottimi giocatori."
+        },
+        "Squadra 4": {
+          logo: "loghi/logo4.png",
+          descrizione: "Il team delle grandi strategie."
+        },
+        "Squadra 5": {
+          logo: "loghi/logo5.png",
+          descrizione: "Una squadra con un forte spirito di squadra."
+        },
+        "Squadra 6": {
+          logo: "loghi/logo6.png",
+          descrizione: "Squadra dal grande potenziale."
+        },
+        "Squadra 7": {
+          logo: "loghi/logo7.png",
+          descrizione: "Una squadra con una storia ricca."
+        },
+        "Squadra 8": {
+          logo: "loghi/logo8.png",
+          descrizione: "La squadra più tecnica del campionato."
+        },
+        "Squadra 9": {
+          logo: "loghi/logo9.png",
+          descrizione: "Una squadra con giocatori di talento."
+        },
+        "Squadra 10": {
+          logo: "loghi/logo10.png",
+          descrizione: "Squadra che punta all'eccellenza."
+        },
+        "Squadra 11": {
+          logo: "loghi/logo11.png",
+          descrizione: "Una squadra con grande passione."
+        },
+        "Squadra 12": {
+          logo: "loghi/logo12.png",
+          descrizione: "La squadra con una storia affascinante."
+        }
+      };
+
+      // Funzione per creare box squadra nella sezione riepilogativa
+      function creaBoxSquadra(nome) {
+        const info = squadreInfo[nome] || {logo:"", descrizione:""};
+        const div = document.createElement("div");
+        div.classList.add("team");
+        div.setAttribute("tabindex", "0");
+        div.innerHTML = `
+          <a href="#${nome.replace(/\s+/g, "")}" tabindex="-1">
+            <img src="${info.logo}" alt="Logo ${nome}" />
+          </a>
+          <a href="#${nome.replace(/\s+/g, "")}" class="name-link" tabindex="-1">${nome}</a>
+          <p>${info.descrizione}</p>
+        `;
+        return div;
+      }
+
+      // Funzione per creare sezione dedicata squadra con lista giocatori
+      function creaSezioneSquadra(nome, giocatori) {
+        const info = squadreInfo[nome] || {logo:"", descrizione:""};
+        const section = document.createElement("section");
+        section.classList.add("squadra-dedicata");
+        section.id = nome.replace(/\s+/g, "");
+        section.setAttribute("tabindex", "0");
+
+        section.innerHTML = `
+          <h3><img src="${info.logo}" alt="Logo ${nome}"> ${nome}</h3>
+          <div class="details">${info.descrizione}</div>
+          <h4>Giocatori attuali</h4>
+          <ul class="giocatori">
+            ${giocatori.length > 0 ? giocatori.map(g => `<li>${g.Nome}</li>`).join("") : "<li>Nessun giocatore trovato</li>"}
+          </ul>
+        `;
+        return section;
+      }
+
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data.filter(row => Object.values(row).some(cell => cell.trim() !== ""));
+          
+          // Raccogli giocatori per squadra
+          data.forEach(giocatore => {
+            const nomeSquadra = giocatore.Squadra.trim();
+            if (!squadreMap.has(nomeSquadra)) {
+              squadreMap.set(nomeSquadra, []);
+            }
+            squadreMap.get(nomeSquadra).push(giocatore);
+          });
+
+          // Popola dropdown filtro squadra
+          Object.keys(squadreInfo).forEach(nomeSquadra => {
+            const opt = document.createElement("option");
+            opt.value = nomeSquadra;
+            opt.textContent = nomeSquadra;
+            squadraSelect.appendChild(opt);
+          });
+
+          // Crea box riepilogativi
+          Object.keys(squadreInfo).forEach(nomeSquadra => {
+            const box = creaBoxSquadra(nomeSquadra);
+            teamsContainer.appendChild(box);
+          });
+
+          // Crea sezioni dedicate (all'inizio tutte visibili)
+          Object.keys(squadreInfo).forEach(nomeSquadra => {
+            const giocatori = squadreMap.get(nomeSquadra) || [];
+            const section = creaSezioneSquadra(nomeSquadra, giocatori);
+            squadreDedicateContainer.appendChild(section);
+          });
+
+          // Filtro per selezionare singola squadra (mostra solo sezione scelta)
+          squadraSelect.addEventListener("change", () => {
+            const scelta = squadraSelect.value;
+            // Mostra tutte se scelta vuota
+            document.querySelectorAll(".squadra-dedicata").forEach(sec => {
+              if (!scelta) {
+                sec.style.display = "block";
+              } else {
+                sec.style.display = (sec.id === scelta.replace(/\s+/g, "")) ? "block" : "none";
+              }
+            });
+            // Scrolla verso sezione selezionata se c'è
+            if(scelta) {
+              const el = document.getElementById(scelta.replace(/\s+/g, ""));
+              if(el) el.scrollIntoView({behavior:"smooth"});
+            }
+          });
+        },
+        error: function(err) {
+          console.error("Errore caricamento CSV:", err);
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
