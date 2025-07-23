@@ -138,7 +138,7 @@ table#tabellaCalciatori td:nth-child(1) {
   width: 20%;            /* circa doppia rispetto alle altre */
   min-width: 100px;
   max-width: 200px;
-  text-align: left;
+  text-align: center;
   padding-left: 1rem;
 }
 
@@ -161,6 +161,10 @@ table#finanze-tabella td {
   text-align: center;
   vertical-align: middle;
   overflow-wrap: break-word;
+}
+table#tabellaCalciatori td:first-child {
+  text-align: left;
+  padding-left: 1rem; /* opzionale per maggiore leggibilità */
 }
 
 /* --- Righe alternate --- */
