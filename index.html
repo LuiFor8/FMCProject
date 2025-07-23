@@ -2,16 +2,247 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FMC Project - Home</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Reset base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f5f8fa;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #0d47a1;
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      margin: 0.5rem 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background: #1565c0;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Hero section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      color: white;
+      padding: 5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.3);
+      margin-bottom: 3rem;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 500;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    /* Squadre section */
+    #squadre {
+      margin-bottom: 3rem;
+    }
+    #squadre h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 3px solid #0d47a1;
+      padding-bottom: 0.3rem;
+      font-weight: 700;
+    }
+    .teams {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+      gap: 1.5rem;
+    }
+    .team {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .team:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+    }
+    .team img {
+      max-width: 80px;
+      margin-bottom: 0.75rem;
+      border-radius: 50%;
+      border: 2px solid #0d47a1;
+      transition: border-color 0.3s ease;
+    }
+    .team a.team-link {
+      display: block;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0d47a1;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .team a.team-link:hover,
+    .team a.team-link:focus {
+      color: #1565c0;
+      text-decoration: underline;
+    }
+    .team p {
+      font-size: 0.9rem;
+      color: #555;
+      min-height: 40px;
+    }
+
+    /* Albo d'oro */
+    #albo {
+      margin-bottom: 3rem;
+    }
+    #albo h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid #0d47a1;
+      padding-bottom: 0.3rem;
+      font-weight: 700;
+    }
+    #albo ul {
+      list-style-type: none;
+      padding-left: 0;
+      font-size: 1.1rem;
+      color: #222;
+    }
+    #albo li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Contatti */
+    #contatti h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid #0d47a1;
+      padding-bottom: 0.3rem;
+      font-weight: 700;
+    }
+    #contatti form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
+    }
+    #contatti input,
+    #contatti textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      resize: vertical;
+    }
+    #contatti input:focus,
+    #contatti textarea:focus {
+      border-color: #0d47a1;
+      outline: none;
+    }
+    #contatti button {
+      background: #0d47a1;
+      color: white;
+      border: none;
+      padding: 0.85rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    #contatti button:hover,
+    #contatti button:focus {
+      background: #1565c0;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      margin-top: auto;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .teams {
+        grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <header>
     <nav>
       <h1>FMC Project</h1>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="regolamento.html">Regolamento</a></li>
         <li><a href="squadre.html">Squadre</a></li>
         <li><a href="competizioni.html">Competizioni</a></li>
@@ -24,86 +255,64 @@
     </nav>
   </header>
 
-  <section id="home" class="hero">
-    <h2>FMC Project - Sito in costruzione</h2>
-    <p>Versione 1.0</p>
-  </section>
+  <main>
+    <section id="home" class="hero" role="banner" aria-label="Benvenuto su FMC Project">
+      <h2>Benvenuto su FMC Project</h2>
+      <p>Il portale completo per la gestione della tua lega fantacalcio.</p>
+      <p><em>Versione 1.0 - In continuo sviluppo</em></p>
+    </section>
 
-  <section id="squadre" class="section">
-    <h2>Squadre</h2>
-    <div class="teams">
-      <div class="team">
-        <a href="squadre/squadra1.html"><img src="loghi/logo1.png.png" alt="Logo Squadra 1" width="50" height="50" /></a>
-       
-        <a href="squadre/squadra1.html">Squadra 1</a>
-        <p>Descrizione breve.</p>
+    <section id="squadre" class="section" aria-label="Lista squadre fantacalcio">
+      <h2>Le 12 squadre</h2>
+      <div class="teams">
+        <!-- Esempio di team box -->
+        <div class="team" tabindex="0">
+          <a href="squadre/squadra1.html" class="team-link" aria-label="Vai alla pagina Squadra 1">
+            <img src="loghi/logo1.png.png" alt="Logo Squadra 1" />
+            Squadra 1
+          </a>
+          <p>Descrizione breve per Squadra 1.</p>
+        </div>
+        <div class="team" tabindex="0">
+          <a href="squadre/squadra2.html" class="team-link" aria-label="Vai alla pagina Squadra 2">
+            <img src="loghi/logo2.png.png" alt="Logo Squadra 2" />
+            Squadra 2
+          </a>
+          <p>Descrizione breve per Squadra 2.</p>
+        </div>
+        <!-- Aggiungi le altre squadre in modo simile -->
+        <div class="team" tabindex="0">
+          <a href="squadre/squadra3.html" class="team-link" aria-label="Vai alla pagina Squadra 3">
+            <img src="loghi/logo3.png.png" alt="Logo Squadra 3" />
+            Squadra 3
+          </a>
+          <p>Descrizione breve per Squadra 3.</p>
+        </div>
+        <!-- ... fino a Squadra 12 -->
       </div>
-      <div class="team">
-        <h3>Squadra 2</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 3</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 4</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 5</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 6</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 7</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 8</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 9</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 10</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 11</h3>
-        <p>Descrizione breve.</p>
-      </div>
-      <div class="team">
-        <h3>Squadra 12</h3>
-        <p>Descrizione breve.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="albo" class="section">
-    <h2>Albo d'oro</h2>
-    <ul>
-      <li>2025/26 - Squadra Vincente</li>
-    </ul>
-  </section>
+    <section id="albo" class="section" aria-label="Albo d'oro fantacalcio">
+      <h2>Albo d'oro</h2>
+      <ul>
+        <li>2025/26 - Squadra Vincente</li>
+      </ul>
+    </section>
 
-  <section id="contatti" class="section">
-    <h2>Contatti</h2>
-    <form>
-      <input type="text" placeholder="Nome" required />
-      <input type="email" placeholder="Email" required />
-      <textarea placeholder="Messaggio" required></textarea>
-      <button type="submit">Invia</button>
-    </form>
-  </section>
+    <section id="contatti" class="section" aria-label="Modulo contatti">
+      <h2>Contatti</h2>
+      <form>
+        <input type="text" placeholder="Nome" required aria-label="Nome" />
+        <input type="email" placeholder="Email" required aria-label="Email" />
+        <textarea placeholder="Messaggio" required aria-label="Messaggio"></textarea>
+        <button type="submit">Invia</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
   </footer>
+
 </body>
 </html>
