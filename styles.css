@@ -96,12 +96,6 @@ nav ul li a:hover {
   padding-bottom: 10px;
 }
 
-.section p,
-.section ul {
-  font-size: 1em;
-  line-height: 1.6;
-}
-
 /* Team grid */
 .teams {
   display: grid;
@@ -162,7 +156,7 @@ footer {
   padding: 10px 15px;
   width: 100%;
   max-width: 400px;
-  margin: 20px auto;
+  margin: 30px auto 10px auto;
   display: block;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -187,10 +181,13 @@ thead {
   color: white;
 }
 
-th, td {
+th,
+td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+  font-size: 0.95rem;
 }
 
 tbody tr:hover {
@@ -204,4 +201,44 @@ tr:nth-child(even) {
 /* Intestazioni ordinabili */
 th.sortable {
   cursor: pointer;
-  position: relative
+  position: relative;
+}
+
+th.sortable::after {
+  content: " ⇅";
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-left: 5px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h2 {
+    font-size: 2em;
+  }
+
+  .section {
+    padding: 40px 10px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+
+  #searchInput {
+    width: 90%;
+  }
+}
