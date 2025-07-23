@@ -3,17 +3,10 @@ async function caricaFinanze() {
   const testo = await response.text();
 
   const righe = testo.trim().split('\n');
-  const intestazioni = righe[0].split(',');
-  const corpoTabella = document.querySelector('#finanze-tabella tbody');
-  const intestazioneTabella = document.querySelector('#finanze-tabella thead tr');
+  // const intestazioni = righe[0].split(','); // non serve creare gli <th> perché ci sono già
 
-  intestazioni.forEach((intestazione, index) => {
-    const th = document.createElement('th');
-    th.textContent = intestazione;
-    th.style.cursor = 'pointer';
-    th.addEventListener('click', () => ordinaTabella(index));
-    intestazioneTabella.appendChild(th);
-  });
+  const corpoTabella = document.querySelector('#finanze-tabella tbody');
+  corpoTabella.innerHTML = ''; // pulisco eventuali dati precedenti
 
   for (let i = 1; i < righe.length; i++) {
     const valori = righe[i].split(',');
