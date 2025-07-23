@@ -115,4 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       filtroSquadra.addEventListener("change", filtraDati);
       filtroRuolo.addEventListener("change", filtraDati);
-      filtroAnniContratto.addEventListener(
+     filtroAnniContratto.addEventListener("change", filtraDati);
+   searchInput.addEventListener("input", filtraDati);
+
+   renderTable(data);
