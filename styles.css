@@ -278,6 +278,28 @@ header ul li a.active {
     display: none;
   }
 }
+.squadra-box table {
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+}
+
+.squadra-box th,
+.squadra-box td {
+  padding: 0.4rem;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+.squadra-box th {
+  background-color: #ff9f1c;
+  color: #121212;
+}
+
+.squadra-box tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
 
 /* --- Bottoni globali --- */
 button {
