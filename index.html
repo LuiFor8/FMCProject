@@ -2,23 +2,17 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FMC Project - Home</title>
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <header>
     <nav>
-      <h1><i class="fas fa-futbol"></i> FMC Project</h1>
+      <h1>FMC Project</h1>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="regolamento.html">Regolamento</a></li>
         <li><a href="squadre.html">Squadre</a></li>
         <li><a href="competizioni.html">Competizioni</a></li>
@@ -26,46 +20,57 @@
         <li><a href="trattative.html">Trattative</a></li>
         <li><a href="finanze.html">Finanze</a></li>
         <li><a href="albo.html">Albo d'oro</a></li>
-        <li><a href="contatti.html">Contatti</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <section id="home" class="hero animate__animated animate__fadeIn">
-      <h2>FMC Project - Il tuo Fantacalcio Manageriale</h2>
-      <p>Versione 1.0 - Sito in costruzione</p>
-    </section>
+  <main class="section container">
+    <h2>Benvenuto in FMC Project</h2>
+    <p>Il tuo portale per gestire il fantacalcio manageriale con squadre, giocatori, trattative e tanto altro.</p>
 
-    <section id="squadre" class="section">
-      <h2>Squadre</h2>
-      <div class="teams">
-        <div class="team">
-          <a href="squadre/squadra1.html" class="team-link"><img src="loghi/logo1.png.png" alt="Logo Squadra 1" width="80" height="80" /></a>
-          <a href="squadre/squadra1.html" class="team-link">Squadra 1</a>
-          <p>Descrizione breve della squadra 1.</p>
-        </div>
-        <div class="team">
-          <a href="squadre/squadra2.html" class="team-link"><img src="loghi/logo2.png" alt="Logo Squadra 2" width="80" height="80" /></a>
-          <a href="squadre/squadra2.html" class="team-link">Squadra 2</a>
-          <p>Descrizione breve della squadra 2.</p>
-        </div>
-        <!-- Aggiungi le altre 10 squadre similmente -->
-        <!-- ... -->
-      </div>
-    </section>
+    <div class="cards-grid">
 
-    <section id="albo" class="section">
-      <h2>Albo d'oro</h2>
-      <ul>
-        <li>2025/26 - Squadra Vincente</li>
-      </ul>
-    </section>
+      <article class="card">
+        <h3><a href="squadre.html">Squadre</a></h3>
+        <p>Scopri le 12 squadre partecipanti con i loro loghi, descrizioni e la rosa completa di giocatori.</p>
+      </article>
 
+      <article class="card">
+        <h3><a href="competizioni.html">Competizioni</a></h3>
+        <p>Consulta il calendario, la classifica e i risultati delle varie competizioni attive.</p>
+      </article>
+
+      <article class="card">
+        <h3><a href="calciatori.html">Calciatori</a></h3>
+        <p>Accedi all'elenco completo dei calciatori con filtri, statistiche e dettagli di contratto.</p>
+      </article>
+
+      <article class="card">
+        <h3><a href="trattative.html">Trattative</a></h3>
+        <p>Gestisci e visualizza tutte le trattative in corso tra squadre e giocatori.</p>
+      </article>
+
+      <article class="card">
+        <h3><a href="finanze.html">Finanze</a></h3>
+        <p>Monitora il bilancio e le transazioni finanziarie delle squadre.</p>
+      </article>
+
+      <article class="card">
+        <h3><a href="albo.html">Albo d'oro</a></h3>
+        <p>Consulta la lista dei vincitori delle stagioni precedenti e le loro imprese.</p>
+      </article>
+
+      <article class="card">
+        <h3><a href="regolamento.html">Regolamento</a></h3>
+        <p>Leggi le regole ufficiali e le modalità di gioco per partecipare correttamente.</p>
+      </article>
+
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 FMC Project. Tutti i diritti riservati.</p>
   </footer>
+
 </body>
 </html>
