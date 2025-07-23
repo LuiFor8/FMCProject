@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let data = results.data.filter(row => Object.values(row).some(cell => cell.trim() !== ""));
       const tbody = document.querySelector("#tabellaCalciatori tbody");
       const filtroSquadra = document.getElementById("filtroSquadra");
+      const filtroProprietario = document.getElementById("filtroProprietario");
       const filtroRuolo = document.getElementById("filtroRuolo");
       const filtroAnniContratto = document.getElementById("filtroAnniContratto");
       const searchInput = document.getElementById("searchInput");
